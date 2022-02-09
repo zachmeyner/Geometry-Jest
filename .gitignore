@@ -123,3 +123,10 @@ Cargo.lock
 .bak
 
 .DS_Store
+
+# react stuff
+/backend/.build
+.env*
+!.env.example
+build-log*.txt
+.DS_Store
