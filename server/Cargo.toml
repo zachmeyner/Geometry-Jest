@@ -8,3 +8,4 @@ edition = "2021"
 [dependencies]
 rocket = "0.4.10"
 rocket_cors = "0.5.2"
+rocket_contrib = "0.4.10"

@@ -3,6 +3,11 @@
 extern crate rocket;
 extern crate rocket_cors;
 
+use rocket::response::NamedFile;
+use rocket_contrib::serve::StaticFiles;
+use std::io;
+use std::path::{Path, PathBuf};
+
 use rocket::http::Method;
 use rocket_cors::{AllowedHeaders, AllowedOrigins, Cors, CorsOptions, Error};
 
@@ -31,9 +36,14 @@ fn make_cors() -> Cors {
     .expect("error while building CORS")
 }
 
+#[get("/<file..>")]
+fn files(file: PathBuf) -> Option<NamedFile> {
+    NamedFile::open(Path::new("../frontend/build/").join(file)).ok()
+}
+
 #[get("/")]
-fn index() -> &'static str {
-    "Hello, world!"
+fn index() -> io::Result<NamedFile> {
+    NamedFile::open("../frontend/build/index.html")
 }
 
 #[get("/api/myrocket")]
@@ -43,7 +53,7 @@ fn myrocket() -> String {
 
 fn rocket() -> rocket::Rocket {
     rocket::ignite()
-        .mount("/", routes![index, myrocket])
+        .mount("/", routes![index, myrocket, files])
         .attach(make_cors())
 }
 
