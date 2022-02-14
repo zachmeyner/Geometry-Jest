@@ -34,4 +34,15 @@ Cargo.lock
 # MSVC Windows builds of rustc generate these, which store debugging information
 *.pdb
 
+<<<<<<< HEAD
 # End of https://www.toptal.com/developers/gitignore/api/react,rust
+=======
+.DS_Store
+
+# react stuff
+/backend/.build
+.env*
+!.env.example
+build-log*.txt
+.DS_Store
+>>>>>>> 12a949535f446149196ed10d3ed2d771b0618f29
