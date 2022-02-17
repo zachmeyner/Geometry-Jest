@@ -16,8 +16,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: CD Folder
-      run: cd server
+    - working-directory: ./server
     - name: Build
       run: cargo build --verbose
     - name: Run tests
