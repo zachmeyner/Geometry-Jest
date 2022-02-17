@@ -16,8 +16,9 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - working-directory: ./server
     - name: Build
+      working-directory: ./server
       run: cargo build --verbose
     - name: Run tests
+      working-directory: ./server
       run: cargo test --verbose
