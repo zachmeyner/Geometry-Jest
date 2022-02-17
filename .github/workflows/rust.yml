@@ -16,6 +16,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+    - name: Rust Nightly
+      run: rustup default nightly
     - name: Build
       working-directory: ./server
       run: cargo build --verbose
