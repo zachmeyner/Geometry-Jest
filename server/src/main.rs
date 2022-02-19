@@ -10,13 +10,13 @@ use std::io;
 use std::path::{Path, PathBuf};
 use std::str::FromStr;
 
-// TODO: Get disel hooked up to mysql server given from .env file
+// TODO: Get disel hooked up to mysql server given from .env file -Z
+// TODO: Setup Rocket::config to get local ip and port from .env file -Z
 
 // use rocket::http::Method;
 use rocket_cors::AllowedOrigins;
 
 // Retrieves frontend js for the webpage
-// ! It is also attempting to retrieve /frontend/build/myrocket/application.json. I'll look into it once we're more setup. -Z
 #[get("/<file..>")]
 async fn files(file: PathBuf) -> Option<NamedFile> {
     NamedFile::open(Path::new("../frontend/build/").join(file))
