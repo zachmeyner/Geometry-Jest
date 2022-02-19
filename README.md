@@ -8,7 +8,6 @@ Geometry Jest is to be a web based game for learning about the interactions betw
 The website has a backend server built in Rust using the Rocket Framework. The server interacts with a mySQL database using Diesel. The frontend is built in JS with React.
 
 ## Build Instructions
----
 Install [WSL](https://docs.microsoft.com/en-us/windows/wsl/install) onto your computer. I think it's best if we do all builds in there. It works on all versions of Windows 10 Home.
 
 ### Prerequisites
