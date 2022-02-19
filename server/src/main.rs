@@ -4,56 +4,54 @@ extern crate rocket;
 extern crate rocket_cors;
 
 use dotenv::dotenv;
-use rocket::response::NamedFile;
-//use rocket_contrib::serve::StaticFiles;
+use rocket::fs::NamedFile;
+// use rocket_contrib::serve::StaticFiles;
 use std::io;
 use std::path::{Path, PathBuf};
+use std::str::FromStr;
 
-// TODO: See of cors is actually neccessary, everything commented out may or may not be needed. So for now I'm leaving it in.
-// TODO: If we need the cors again it is as simple as delete these comments.
+// TODO: Get disel hooked up to mysql server given from .env file
 
-//use rocket::http::Method;
-//use rocket_cors::{AllowedHeaders, AllowedOrigins, Cors, CorsOptions, Error};
+// use rocket::http::Method;
+use rocket_cors::AllowedOrigins;
 
-/*fn make_cors() -> Cors {
+// Retrieves frontend js for the webpage
+// ! It is also attempting to retrieve /frontend/build/myrocket/application.json. I'll look into it once we're more setup. -Z
+#[get("/<file..>")]
+async fn files(file: PathBuf) -> Option<NamedFile> {
+    NamedFile::open(Path::new("../frontend/build/").join(file))
+        .await
+        .ok()
+}
+
+// Renders the webpage :)
+#[get("/")]
+async fn index() -> io::Result<NamedFile> {
+    NamedFile::open("../frontend/build/index.html").await
+}
+
+// Function that launches the server.
+// I spent way too many hours trying to figure out why cors couldn't attach just to learn that rocket_cors 0.5.2 didn't have Fairing implenmented for struct cors.
+#[launch]
+fn rocket() -> _ {
     let allowed_origins = AllowedOrigins::some_exact(&[
         "http://localhost:3000",
         "http://127.0.0.1:3000",
         "http://localhost:8000",
         "http://0.0.0.0:8000",
     ]);
-
-    CorsOptions {
+    let cors = rocket_cors::CorsOptions {
         allowed_origins,
-        allowed_methods: vec![Method::Get].into_iter().map(From::from).collect(),
-        allowed_headers: AllowedHeaders::some(&[
-            "Authorization",
-            "Accept",
-            "Access-Control-Allow-Origin",
-        ]),
+        allowed_methods: ["Get", "Post"]
+            .into_iter()
+            .map(|s| FromStr::from_str(s).unwrap())
+            .collect(),
         allow_credentials: true,
         ..Default::default()
     }
     .to_cors()
-    .expect("error while building CORS")
-}*/
-
-#[get("/<file..>")]
-fn files(file: PathBuf) -> Option<NamedFile> {
-    NamedFile::open(Path::new("../frontend/build/").join(file)).ok()
-}
-
-#[get("/")]
-fn index() -> io::Result<NamedFile> {
-    NamedFile::open("../frontend/build/index.html")
-}
-
-fn rocket() -> rocket::Rocket {
-    rocket::ignite()
+    .expect("Error creating CORS fairing");
+    rocket::build()
         .mount("/", routes![index, files])
-       // .attach(make_cors())
-}
-
-fn main() {
-    rocket().launch();
+        .attach(cors)
 }
