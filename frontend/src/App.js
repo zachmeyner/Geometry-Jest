@@ -1,34 +1,33 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
 import axios from "axios";
 import React, { useEffect } from "react";
+import { Container, Row, Col, Button } from "react-bootstrap";
 
-function App() {
-  const getData = async () => {
+class App extends React.Component {
+  getData = async () => { // removed const, return type
     const response = await axios("http://localhost:8000/myrocket");
-  console.log(response.data);
-};
+    console.log(response.data);
+  };
+  /*
   useEffect(() => {
     getData();
   }, []);
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Geometry Jest with Rust and React
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+  */
+  render() {
+    return (
+      <Container fluid className="App bg-light" >
+        <Container className="bg-white" >
+          <Col>
+            <Row className="mt-1 float-start">
+              <Col>
+                <Button variant="outline-primary" >Login </Button>
+              </Col>
+            </Row>
+          </Col>
+        </Container>
+      </Container >
+    )
+  }
 }
 
 export default App;
