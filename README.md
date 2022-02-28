@@ -42,10 +42,7 @@ Install [WSL](https://docs.microsoft.com/en-us/windows/wsl/install) onto your co
         ```
         These commands will return the npm version (currently 8.x) and NodeJS version (17.x) respectively.
 3. MySQL
-    1. Install MySQL with 
-        ```bash
-        sudo apt-get install mysql-shell
-        ```
+    1. IDK RIGHT NOW I'LL FIX IT THO
 
 ### Frontend
 ----
