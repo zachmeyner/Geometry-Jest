@@ -31,7 +31,7 @@ Install [WSL](https://docs.microsoft.com/en-us/windows/wsl/install) onto your co
         ```
     2.  Restart after running this command then run 
         ```bash
-        npm install 17
+        nvm install 17
         ```
         This will install nvm (Node Version Manager) and NodeJS 17.x.
         
