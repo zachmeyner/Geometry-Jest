@@ -1,13 +1,9 @@
 import React from "react";
 import { Container } from "react-bootstrap";
-class Score extends React.Component {
-    render() {
-        return (
-            <Container className="border">
-                <p> Current Score Here</p>
-            </Container>
-        )
-    }
+export default function Score() {
+    return (
+        <Container className="border text-light">
+            <h2>Score: 000000000</h2>
+        </Container>
+    )
 }
-
-export default Score;

@@ -1,12 +1,41 @@
+.gj-bg {
+  border: #e2c600 solid 10px;
+  border-radius: 20px;
+  background: rgb(52, 59, 159);
+  background: radial-gradient(
+    circle,
+    rgba(52, 59, 159, 1) 15%,
+    rgba(34, 39, 106, 1) 90%
+  );
+}
+.gj-betButton {
+  background-color: #e2c600;
+}
+.gj-button {
+  font-size: 2.5em;
+  color: #ffffff;
+  text-shadow: #013c80;
+  background-color: #046ff0;
+  border: #013c80 solid 2px;
+  border-radius: 10px;
+}
+.gj-button:hover {
+  background-color: #0450b0;
+}
+.gj-button:active {
+  box-shadow: 1px 1px 10px 2px #046ff0;
+  background-color: #3386eb;
+}
 .App {
   text-align: center;
 }
-
 .App-logo {
   height: 40vmin;
   pointer-events: none;
 }
-
+.no-resize {
+  resize: none;
+}
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
