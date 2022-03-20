@@ -50,6 +50,7 @@ Go into the frontend directory.
 
 To test the frontend with no backend support run
 ```bash
+npm ci
 npm start
 ```
 This will start a the frontend portion of the webpage on [localhost:3000](localhost:3000).
