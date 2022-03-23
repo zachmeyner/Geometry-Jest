@@ -19,8 +19,9 @@ pub struct UsrAns<'r> {
 #[post("/", format = "json", data = "<usrans>")]
 pub async fn check(usrans: Json<UsrAns<'_>>) -> Value {
     println!("{:#?}", usrans);
-    let sol = solve(usrans);
+    let sol = solve(&usrans);
 
+    // * Temporary output until everything starts coming together
     json! ({ "correct": true })
 }
 
@@ -28,7 +29,7 @@ pub async fn check(usrans: Json<UsrAns<'_>>) -> Value {
 // * Question number is based on original VB code. For instance [1][2][3] will be ques = 123
 // Returns a boolean
 // TODO: Rewrite all of his check cases in this match statement (If you have a better solution let me know)
-fn solve(ans: Json<UsrAns<'_>>) -> Option<bool> {
+fn solve(ans: &Json<UsrAns<'_>>) -> Option<bool> {
     // * In rust match is equivalent to switch
     match ans.question {
         111 => {
