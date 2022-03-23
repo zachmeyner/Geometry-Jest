@@ -25,6 +25,8 @@ pub async fn check(usrans: Json<UsrAns<'_>>) -> Value {
     json! ({ "correct": true })
 }
 
+// Rust is dumb lol just use C++ smh my head
+
 // Function that compares the answer with question # to see if it's right.
 // * Question number is based on original VB code. For instance [1][2][3] will be ques = 123
 // Returns a boolean
@@ -55,6 +57,167 @@ fn solve(ans: &Json<UsrAns<'_>>) -> Option<bool> {
         }
         121 => {
             if ans.answer == LINE {
+                Some(true)
+            } else {
+                Some(false)
+            }
+        }
+        122 => {
+            if ans.answer == POINT {
+                Some(true)
+            } else {
+                Some(false)
+            }
+        }
+        123 => {
+            if ans.answer == PLANE {
+                Some(true)
+            } else {
+                Some(false)
+            }
+        }
+        131 => {
+            if ans.answer == LINE {
+                Some(true)
+            } else {
+                Some(false)
+            }
+        }
+        132 => {
+            if ans.answer == POINT {
+                Some(true)
+            } else {
+                Some(false)
+            }
+        }
+        133 => {
+            if ans.answer == POINT {
+                Some(true)
+            } else {
+                Some(false)
+            }
+        }
+        211 => {
+            if ans.answer == PLANE {
+                Some(true)
+            } else {
+                Some(false)
+            }
+        }
+        212 => {
+            if ans.answer == POINT {
+                Some(true)
+            } else {
+                Some(false)
+            }
+        }
+        213 => {
+            if ans.answer == PLANE {
+                Some(true)
+            } else {
+                Some(false)
+            }
+        }
+        221 => {
+            if ans.answer == POINT {
+                Some(true)
+            } else {
+                Some(false)
+            }
+        }
+        222 => {
+            if ans.answer == PLANE {
+                Some(true)
+            } else {
+                Some(false)
+            }
+        }
+        223 => {
+            if ans.answer == PLANE {
+                Some(true)
+            } else {
+                Some(false)
+            }
+        }
+        231 => {
+            if ans.answer == PLANE {
+                Some(true)
+            } else {
+                Some(false)
+            }
+        }
+        232 => {
+            if ans.answer == POINT {
+                Some(true)
+            } else {
+                Some(false)
+            }
+        }
+        233 => {
+            if ans.answer == LINE {
+                Some(true)
+            } else {
+                Some(false)
+            }
+        }
+        311 => {
+            if ans.answer == PLANE {
+                Some(true)
+            } else {
+                Some(false)
+            }
+        }
+        312 => {
+            if ans.answer == PLANE {
+                Some(true)
+            } else {
+                Some(false)
+            }
+        }
+        313 => {
+            if ans.answer == POINT {
+                Some(true)
+            } else {
+                Some(false)
+            }
+        }
+        321 => {
+            if ans.answer == PLANE {
+                Some(true)
+            } else {
+                Some(false)
+            }
+        }
+        322 => {
+            if ans.answer == POINT {
+                Some(true)
+            } else {
+                Some(false)
+            }
+        }
+        323 => {
+            if ans.answer == LINE {
+                Some(true)
+            } else {
+                Some(false)
+            }
+        }
+        331 => {
+            if ans.answer == LINE {
+                Some(true)
+            } else {
+                Some(false)
+            }
+        }
+        332 => {
+            if ans.answer == LINE {
+                Some(true)
+            } else {
+                Some(false)
+            }
+        }
+        333 => {
+            if ans.answer == POINT {
                 Some(true)
             } else {
                 Some(false)
