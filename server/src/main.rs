@@ -43,7 +43,6 @@ fn rocket() -> _ {
             routes![
                 api::v1::handlers::landing::index,
                 api::v1::handlers::landing::files,
-                api::v1::handlers::anscheck::check,
                 api::v1::handlers::register::register
             ],
         )
