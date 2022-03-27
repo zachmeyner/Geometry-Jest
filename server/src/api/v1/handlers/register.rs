@@ -1,9 +1,9 @@
 use ascii::{AsciiStr, AsciiString};
 use hex;
-use openssl::sha::sha256;
 use rand::{thread_rng, Rng};
 use rocket::serde::json::{json, Json, Value};
 use serde::Deserialize;
+use sha2::{Digest, Sha256};
 
 #[derive(Debug, Deserialize)]
 pub struct RegInfo<'r> {
@@ -29,7 +29,9 @@ pub async fn register(reg: Json<RegInfo<'_>>) -> Value {
     let salted_string = ascii_pass + salt_string_slice;
 
     // Hashes the Salted Password
-    let hash = sha256(AsciiStr::as_bytes(&salted_string));
+    let mut hasher = Sha256::new();
+    hasher.update(AsciiStr::as_bytes(&salted_string));
+    let hash = hasher.finalize();
 
     println!("{:#?} \n {}", reg, hex::encode(hash));
 
