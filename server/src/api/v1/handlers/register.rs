@@ -1,7 +1,9 @@
 use ascii::{AsciiStr, AsciiString};
 use hex;
 use rand::{thread_rng, Rng};
-use rocket::serde::json::{json, Json, Value};
+use rocket::http::{ContentType, Header, Status};
+use rocket::response::{content, status};
+use rocket::serde::json::Json;
 use serde::Deserialize;
 use sha2::{Digest, Sha256};
 
@@ -12,9 +14,11 @@ pub struct RegInfo<'r> {
 }
 
 // Takes in a username and password, salts then hashes the password.
+// This will also automatically log the user in and create a JWT.
+// TODO Add JWT Signing after auto-login.
 // TODO Add username and password to datebase after generation.
 #[post("/register", format = "json", data = "<reg>")]
-pub async fn register(reg: Json<RegInfo<'_>>) -> Value {
+pub async fn register(reg: Json<RegInfo<'_>>) -> status::Custom<content::Json<&'static str>> {
     let mut rng = thread_rng();
     let ascii_pass = AsciiString::from_ascii(reg.password).unwrap();
 
@@ -36,5 +40,7 @@ pub async fn register(reg: Json<RegInfo<'_>>) -> Value {
     println!("{:#?} \n {}", reg, hex::encode(hash));
 
     // * Temporary output until everything starts coming together
-    json!({"content": "success"})
+
+    // json!({ "hi": "hello" })
+    status::Custom(Status::Accepted, content::Json("{ \"Success?\": true }"))
 }
