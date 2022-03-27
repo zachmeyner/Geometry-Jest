@@ -23,8 +23,8 @@ pub async fn register(reg: Json<RegInfo<'_>>) -> status::Custom<content::Json<&'
     let ascii_pass = AsciiString::from_ascii(reg.password).unwrap();
 
     // FIll Array of unsigned 8 bit ints with valid ascii characters (32 -> 127)
-    let mut salt: [u8; 64] = [0; 64];
-    for i in 0..64 {
+    let mut salt: [u8; 32] = [0; 32];
+    for i in 0..32 {
         salt[i] = rng.gen_range(32..126);
     }
 
@@ -37,10 +37,9 @@ pub async fn register(reg: Json<RegInfo<'_>>) -> status::Custom<content::Json<&'
     hasher.update(AsciiStr::as_bytes(&salted_string));
     let hash = hasher.finalize();
 
-    println!("{:#?} \n {}", reg, hex::encode(hash));
+    // println!("{:#?} \n {:#?}", salt_string_slice, hex::encode(hash));
 
     // * Temporary output until everything starts coming together
 
-    // json!({ "hi": "hello" })
     status::Custom(Status::Accepted, content::Json("{ \"Success?\": true }"))
 }
