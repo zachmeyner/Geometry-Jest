@@ -4,22 +4,34 @@
 #![feature(proc_macro_hygiene, decl_macro)]
 #[macro_use]
 extern crate rocket;
+extern crate diesel;
+extern crate dotenv;
 extern crate rocket_cors;
 extern crate serde_derive;
 
-// Will re-enable dotenv when I start using it
-// use dotenv::dotenv;
-// use rocket::fs::NamedFile;
+use diesel::mysql::MysqlConnection;
+use diesel::prelude::*;
+use dotenv::dotenv;
 use rocket::routes;
 use rocket_cors::AllowedOrigins;
+use std::env;
 use std::str::FromStr;
 
 // Module for apis.
 mod api;
+// Module for tools
+mod tools;
 
 // I spent way too many hours trying to figure out why cors couldn't attach just to learn that rocket_cors 0.5.2 didn't have Fairing implenmented for struct cors.
 #[launch]
 fn rocket() -> _ {
+    dotenv().ok();
+
+    let config = crate::tools::config::Config::from_env().unwrap();
+
+    MysqlConnection::establish(&config.database_url)
+        .expect(&format!("Error connecting to {}", &config.database_url));
+
     let allowed_origins = AllowedOrigins::some_exact(&[
         "http://localhost:3000",
         "http://127.0.0.1:3000",
@@ -28,7 +40,7 @@ fn rocket() -> _ {
     ]);
     let cors = rocket_cors::CorsOptions {
         allowed_origins,
-        allowed_methods: ["Get", "Post"]
+        allowed_methods: ["Get", "Post", "Put"]
             .into_iter()
             .map(|s| FromStr::from_str(s).unwrap())
             .collect(),
