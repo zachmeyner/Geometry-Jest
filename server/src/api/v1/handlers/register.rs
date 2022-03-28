@@ -16,7 +16,6 @@ pub struct RegInfo<'r> {
 // Takes in a username and password, salts then hashes the password.
 // This will also automatically log the user in and create a JWT.
 // TODO Add JWT Signing after auto-login.
-// TODO Add username and password to datebase after generation.
 #[post("/register", format = "json", data = "<reg>")]
 pub async fn register(reg: Json<RegInfo<'_>>) -> status::Custom<content::Json<&'static str>> {
     let mut rng = thread_rng();
