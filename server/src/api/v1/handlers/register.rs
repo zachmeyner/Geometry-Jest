@@ -36,7 +36,7 @@ pub async fn register(reg: Json<RegInfo<'_>>) -> status::Custom<content::Json<&'
     hasher.update(salted_string.as_bytes());
     let _hash = hasher.finalize();
 
-    println!("{:#?} \n {:#?}", salted_string, hex::encode(_hash));
+    // println!("{:#?} \n {:?}", salted_string, _hash);
 
     // * Temporary output until everything starts coming together
 
