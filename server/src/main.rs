@@ -26,16 +26,18 @@ mod models;
 // DB Controllers
 mod controllers;
 
-// I spent way too many hours trying to figure out why cors couldn't attach just to learn that rocket_cors 0.5.2 didn't have Fairing implenmented for struct cors.
-#[launch]
-fn rocket() -> _ {
+pub fn establish_connection() -> MysqlConnection {
     dotenv().ok();
 
     let config = crate::tools::config::Config::from_env().unwrap();
 
     MysqlConnection::establish(&config.database_url)
-        .expect(&format!("Error connecting to {}", &config.database_url));
+        .expect(&format!("Error connecting to {}", &config.database_url))
+}
 
+// I spent way too many hours trying to figure out why cors couldn't attach just to learn that rocket_cors 0.5.2 didn't have Fairing implenmented for struct cors.
+#[launch]
+fn rocket() -> _ {
     let allowed_origins = AllowedOrigins::some_exact(&[
         "http://localhost:3000",
         "http://127.0.0.1:3000",

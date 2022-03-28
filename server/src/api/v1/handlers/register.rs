@@ -1,5 +1,5 @@
+use hex;
 use rand::distributions::{Alphanumeric, Distribution};
-// use hex;
 use rand::thread_rng;
 use rocket::http::Status;
 use rocket::response::{content, status};
@@ -36,13 +36,16 @@ pub async fn register(reg: Json<RegInfo<'_>>) -> status::Custom<content::Json<&'
     hasher.update(salted_string.as_bytes());
     let _hash = hasher.finalize();
 
-    println!(
-        "{:#?} \n {:#?}",
-        salted_string.as_bytes(),
-        hex::encode(_hash)
-    );
+    println!("{:#?} \n {:#?}", salted_string, hex::encode(_hash));
 
     // * Temporary output until everything starts coming together
+
+    crate::controllers::users::create_user(
+        &crate::establish_connection(),
+        reg.username.to_string(),
+        hex::encode(_hash),
+        salt,
+    );
 
     status::Custom(Status::Accepted, content::Json("{ \"Success?\": true }"))
 }
