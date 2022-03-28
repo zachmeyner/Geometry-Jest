@@ -4,6 +4,7 @@
 #![feature(proc_macro_hygiene, decl_macro)]
 #[macro_use]
 extern crate rocket;
+#[macro_use]
 extern crate diesel;
 extern crate dotenv;
 extern crate rocket_cors;
@@ -14,13 +15,16 @@ use diesel::prelude::*;
 use dotenv::dotenv;
 use rocket::routes;
 use rocket_cors::AllowedOrigins;
-use std::env;
 use std::str::FromStr;
 
 // Module for apis.
 mod api;
 // Module for tools
 mod tools;
+// DB Models
+mod models;
+// DB Controllers
+mod controllers;
 
 // I spent way too many hours trying to figure out why cors couldn't attach just to learn that rocket_cors 0.5.2 didn't have Fairing implenmented for struct cors.
 #[launch]
