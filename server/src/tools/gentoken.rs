@@ -4,12 +4,25 @@ use jwt::SignWithKey;
 use serde::Serialize;
 use sha2::Sha256;
 
+/**
+ * Claims Structure
+ * Used to create HMAC hash for user
+ * username: input username from LoginForm
+ * iat: UNIX timestamp from LoginForm
+ */
 #[derive(Debug, Serialize)]
 pub struct Claims {
     username: String,
     iat: u32,
 }
 
+/**
+ * Create an JWT for a user
+ * Takes in a username and u32 (UNIX timestamp)
+ * Creates an HMAC key from ACCESS_TOKEN_SECRET environment variable
+ * Signs username and login time with that key
+ * Outputs the signed key as a string
+ */
 pub async fn gen_auth_key(username: String, iat: u32) -> String {
     dotenv().ok();
 

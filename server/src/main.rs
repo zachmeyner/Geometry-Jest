@@ -1,6 +1,3 @@
-// TODO: Get disel hooked up to mysql server given from .env file -Z
-// TODO: Setup Rocket::config to get local ip and port from .env file -Z
-
 #![feature(proc_macro_hygiene, decl_macro)]
 #[macro_use]
 extern crate rocket;
@@ -10,7 +7,6 @@ extern crate dotenv;
 extern crate rocket_cors;
 extern crate serde_derive;
 
-// use dotenv::dotenv;
 use rocket::routes;
 use rocket_cors::AllowedOrigins;
 use std::str::FromStr;
@@ -24,7 +20,11 @@ mod models;
 // DB Controllers
 mod controllers;
 
-// I spent way too many hours trying to figure out why cors couldn't attach just to learn that rocket_cors 0.5.2 didn't have Fairing implenmented for struct cors.
+/**
+ * Main launch function for the webserver
+ * Bind allowed origins for CORS
+ * Mounts the routes in the server and attaches CORS
+ */
 #[launch]
 fn rocket() -> _ {
     let allowed_origins = AllowedOrigins::some_exact(&[
