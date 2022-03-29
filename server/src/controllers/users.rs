@@ -2,6 +2,7 @@ use crate::diesel::RunQueryDsl;
 use crate::models::models::{NewUser, User};
 use crate::models::schema::users;
 use diesel::mysql::MysqlConnection;
+use diesel::types::Char;
 
 pub fn create_user(
     conn: &MysqlConnection,
@@ -24,9 +25,10 @@ pub fn create_user(
 pub async fn check_if_exists(username: &'_ str) -> bool {
     let conn = crate::tools::establish::establish_connection().await;
 
-    let query = format!("SELECT * FROM users WHERE username = '{}';", username);
-
-    let data = diesel::sql_query(query).load::<User>(&conn).unwrap();
+    let data = diesel::sql_query("SELECT * FROM users WHERE username = '?';")
+        .bind::<Char, _>(username)
+        .load::<User>(&conn)
+        .unwrap();
 
     if data.len() == 0 {
         true
@@ -38,9 +40,10 @@ pub async fn check_if_exists(username: &'_ str) -> bool {
 pub async fn get_salt(username: &'_ str) -> String {
     let conn = crate::tools::establish::establish_connection().await;
 
-    let query = format!("SELECT * FROM users WHERE username = '{}';", username);
-
-    let data = diesel::sql_query(query).load::<User>(&conn).unwrap();
+    let data = diesel::sql_query("SELECT * FROM users WHERE username = '?';")
+        .bind::<Char, _>(username)
+        .load::<User>(&conn)
+        .unwrap();
 
     return data[0].salt.clone();
 }
@@ -48,9 +51,10 @@ pub async fn get_salt(username: &'_ str) -> String {
 pub async fn get_hashpass(username: &'_ str) -> String {
     let conn = crate::tools::establish::establish_connection().await;
 
-    let query = format!("SELECT * FROM users WHERE username = '{}';", username);
-
-    let data = diesel::sql_query(query).load::<User>(&conn).unwrap();
+    let data = diesel::sql_query("SELECT userpass FROM users WHERE username = '?';")
+        .bind::<Char, _>(username)
+        .load::<User>(&conn)
+        .unwrap();
 
     return data[0].userpass.clone();
 }
