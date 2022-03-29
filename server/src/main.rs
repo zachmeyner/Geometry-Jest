@@ -10,9 +10,7 @@ extern crate dotenv;
 extern crate rocket_cors;
 extern crate serde_derive;
 
-use diesel::mysql::MysqlConnection;
-use diesel::prelude::*;
-use dotenv::dotenv;
+// use dotenv::dotenv;
 use rocket::routes;
 use rocket_cors::AllowedOrigins;
 use std::str::FromStr;
@@ -25,15 +23,6 @@ mod tools;
 mod models;
 // DB Controllers
 mod controllers;
-
-pub fn establish_connection() -> MysqlConnection {
-    dotenv().ok();
-
-    let config = crate::tools::config::Config::from_env().unwrap();
-
-    MysqlConnection::establish(&config.database_url)
-        .expect(&format!("Error connecting to {}", &config.database_url))
-}
 
 // I spent way too many hours trying to figure out why cors couldn't attach just to learn that rocket_cors 0.5.2 didn't have Fairing implenmented for struct cors.
 #[launch]
@@ -61,7 +50,8 @@ fn rocket() -> _ {
             routes![
                 api::v1::handlers::landing::index,
                 api::v1::handlers::landing::files,
-                api::v1::handlers::register::register
+                api::v1::handlers::register::register,
+                api::v1::handlers::login::login
             ],
         )
         .attach(cors)
