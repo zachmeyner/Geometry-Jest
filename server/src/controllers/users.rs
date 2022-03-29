@@ -34,3 +34,23 @@ pub async fn check_if_exists(username: &'_ str) -> bool {
         false
     }
 }
+
+pub async fn get_salt(username: &'_ str) -> String {
+    let conn = crate::tools::establish::establish_connection().await;
+
+    let query = format!("SELECT * FROM users WHERE username = '{}';", username);
+
+    let data = diesel::sql_query(query).load::<User>(&conn).unwrap();
+
+    return data[0].salt.clone();
+}
+
+pub async fn get_hashpass(username: &'_ str) -> String {
+    let conn = crate::tools::establish::establish_connection().await;
+
+    let query = format!("SELECT * FROM users WHERE username = '{}';", username);
+
+    let data = diesel::sql_query(query).load::<User>(&conn).unwrap();
+
+    return data[0].userpass.clone();
+}

@@ -16,19 +16,32 @@ pub struct Claims<'r> {
     iat: u32,
 }
 
-// TODO: Create a POST request that recieves username and password and attempt to login using those credientials
-// TODO This will acquire a lot more integration with Diesel and MySQL than we have at the current time, which is 0.
+// Takes in username, password, and 32 bit UNIX timestamp of login
+// See if the user is a valid user in the database
+// If user is a valid user in the database check if the password is correct
+// If the password is correct return JWT
 #[post("/login", format = "json", data = "<args>")]
 pub async fn login(args: Json<LoginForm<'_>>) -> status::Custom<content::Json<String>> {
     let go: bool = crate::controllers::users::check_if_exists(args.username).await;
 
-    if go {
-        let token_str =
-            crate::tools::gentoken::gen_auth_key(args.username.to_string(), args.iat).await;
+    if !go {
+        let salt = crate::controllers::users::get_salt(args.username).await;
+        let hashpass = crate::controllers::users::get_hashpass(args.username).await;
 
-        let ret = format!("{{ \"Token\": \"{}\" }}", token_str);
+        let salted_string = format!("{}{}", args.pw, salt);
 
-        status::Custom(Status::Accepted, content::Json(ret))
+        let hashed = crate::tools::hashstring::hash_string(salted_string).await;
+
+        if hashed == hashpass {
+            let token_str =
+                crate::tools::gentoken::gen_auth_key(args.username.to_string(), args.iat).await;
+
+            let ret = format!("{{ \"Token\": \"{}\" }}", token_str);
+
+            status::Custom(Status::Accepted, content::Json(ret))
+        } else {
+            status::Custom(Status::Unauthorized, content::Json("".to_string()))
+        }
     } else {
         status::Custom(Status::Unauthorized, content::Json("".to_string()))
     }
