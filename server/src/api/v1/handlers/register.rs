@@ -15,10 +15,9 @@ pub struct RegInfo<'r> {
 // TODO Add JWT Signing after auto-login.
 #[post("/register", format = "json", data = "<reg>")]
 pub async fn register(reg: Json<RegInfo<'_>>) -> status::Custom<content::Json<&'static str>> {
-    if crate::controllers::users::check_if_exists(
-        &crate::tools::establish::establish_connection(),
-        reg.username,
-    ) {
+    let go: bool = crate::controllers::users::check_if_exists(reg.username).await;
+
+    if go {
         let salt = crate::tools::createsalt::create_salt().await;
 
         // Salts the password with the characters from the 64 byte array
@@ -32,7 +31,7 @@ pub async fn register(reg: Json<RegInfo<'_>>) -> status::Custom<content::Json<&'
         // * Temporary output until everything starts coming together
 
         crate::controllers::users::create_user(
-            &crate::tools::establish::establish_connection(),
+            &crate::tools::establish::establish_connection().await,
             reg.username.to_string(),
             hashed,
             salt,

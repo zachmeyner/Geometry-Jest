@@ -21,10 +21,12 @@ pub fn create_user(
         .expect("Failed to create user.")
 }
 
-pub fn check_if_exists(conn: &MysqlConnection, username: &'_ str) -> bool {
+pub async fn check_if_exists(username: &'_ str) -> bool {
+    let conn = crate::tools::establish::establish_connection().await;
+
     let query = format!("SELECT * FROM users WHERE username = '{}';", username);
 
-    let data = diesel::sql_query(query).load::<User>(conn).unwrap();
+    let data = diesel::sql_query(query).load::<User>(&conn).unwrap();
 
     if data.len() == 0 {
         true
