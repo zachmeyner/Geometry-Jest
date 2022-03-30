@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import { Container, Form, Button, Row, Col } from "react-bootstrap";
 import { CSSTransition } from 'react-transition-group';
+import axios from 'axios';
 export default function Register() {
     const [displayForm, setDisplayForm] = useState('d-none');
     const [displayFormBool, setDisplayFormBool] = useState(false);
     const [dataSent, setDataSent] = useState(["", ""]);
+    const url = 'http://localhost:8000/register'
     function ShowForm() {
         if (displayForm != 'd-none') {
             setDisplayForm('d-none');
@@ -16,17 +18,17 @@ export default function Register() {
     }
     function HandleRegister(event) {
         setDataSent([event.target[0].value, event.target[1].value]);
-        fetch('127.0.0.1:8000/api/v1/handlers/login', {
-            method: "POST",
-            headers: {
-                'Content-type': 'application/json'
-            },
-            body: JSON.stringify(dataSent)
-        })
-            .then((response) => response.json())
-            .then((result) => {
-                console.log(result)
+        event.preventDefault();
+        axios
+            .post(url, dataSent, {
+                headers: {
+                    Accept: "application/json",
+                    "Content-Type": "application/json;charset=UTF-8",
+                },
             })
+            .then(({ data }) => {
+                console.log(data);
+            });
     }
 
     return (
@@ -39,7 +41,7 @@ export default function Register() {
                 unmountOnExit
             >
                 <Container className={`bg-light row ${displayForm} position-relative`}>
-                    <Form method="POST" action="localhost:8000/api/v1/handlers/login" onSubmit={HandleRegister}>
+                    <Form method="POST" action={url} onSubmit={HandleRegister}>
                         <Row className="p-1" >
                             <Col>
                                 <Form.Control autoFocus placeholder="Username" name="user" />
