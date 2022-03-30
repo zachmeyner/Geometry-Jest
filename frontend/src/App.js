@@ -7,6 +7,8 @@ import Bet from "./component/Bet"
 import HighScore from "./component/HighScore"
 import Credits from "./component/Credits"
 import QuestionBox from "./component/QuestionBox"
+import Register from "./component/Register"
+
 import { Container, Row, Col } from "react-bootstrap";
 
 export default function App() {
@@ -15,12 +17,26 @@ export default function App() {
   //   const response = await axios("http://localhost:8000/myrocket");
   //   console.log(response.data);
   // }
+  function onRegister() {
+    const test = { username: "daniel", password: "pass123" };
+    fetch('127.0.0.1:8000/login', {
+      method: "POST",
+      headers: {
+        'Content-type': 'application/json'
+      },
+      body: JSON.stringify(test)
+    })
+      .then((response) => response.json())
+      .then((result) => {
+        console.log(result)
+      })
+  }
   return (
     <Container className="App border border-dark mt-4 m-auto" >
       <Container className="bg-white p-2" >
         <Row lg={4} className="p-2 gj-bg">
-          <Col className="float-start border mb-2" sm={2}>
-            <button className="gj-button">Login </button>
+          <Col lg={4} className="float-start border mb-2" >
+            <Register> </Register>
           </Col>
           <Col className="float-end ms-auto" sm={4}>
             <Score ></Score>

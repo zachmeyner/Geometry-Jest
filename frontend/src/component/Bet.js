@@ -4,7 +4,6 @@ import { Container, ToggleButtonGroup, ToggleButton, Button } from "react-bootst
 export default function Bet() {
     const [bet, setBet] = useState(1);
     const [other, setOther] = useState(0);
-    const [selected, setSelectd] = useState([false, false, false, false, false])
     function handleChange(event) {
         setOther(event.target.value);
     }
@@ -16,6 +15,7 @@ export default function Bet() {
     }
     function otherSelected() {
         setBet(other);
+        document.getElementById("otherTA").focus();
     }
     return (
         < Container className="gj-bg p-2" >
@@ -31,10 +31,10 @@ export default function Bet() {
                 <ToggleButton id="bet10" value={10} className="border"  >
                     10
                 </ToggleButton>
-                <ToggleButton id="betOther" value={other} onSelect={otherSelected} className="border">
+                <ToggleButton id="betOther" value={other} onChange={otherSelected} className="border">
                     Other <input id="otherTA" type="number" onChange={handleChange} />
                 </ToggleButton >
-                <ToggleButton id="betAll" value={0} className="border" >
+                <ToggleButton id="betAll" value={9999} className="border" >
                     All
                 </ ToggleButton>
                 <Button variant="warning" type="submit" onClick={handleSubmit} className="border">Place Bet </Button>

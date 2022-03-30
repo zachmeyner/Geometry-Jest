@@ -24,6 +24,7 @@ Install [WSL](https://docs.microsoft.com/en-us/windows/wsl/install) onto your co
         cargo install cargo-watch
         ```
         This will let you edit code and have the server running at the same time, when you save the server will rebuild automatically (more on that later).
+# i needed to run sudo apt-get install libmysqlclient-dev to do cargo run 
 2. NodeJS (npm)
     1. Install and update npm/NodeJS with 
         ```bash
@@ -41,6 +42,10 @@ Install [WSL](https://docs.microsoft.com/en-us/windows/wsl/install) onto your co
         node -v
         ```
         These commands will return the npm version (currently 8.x) and NodeJS version (17.x) respectively.
+   4. Install required packages
+        ```
+        npm install
+        ```
 3. MySQL
     1. IDK RIGHT NOW I'LL FIX IT THO
 
