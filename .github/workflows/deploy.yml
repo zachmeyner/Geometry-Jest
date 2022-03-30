@@ -12,8 +12,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: executing remote ssh commands using password
+    - name: SSH Remote Commands
       uses: appleboy/ssh-action@v0.1.4
+
       with:
         host: ${{ secrets.HOST }}
         key: ${{ secrets.KEY }}
@@ -35,8 +36,4 @@ jobs:
           cd ..
           echo "Starting Server"
           cd server
-<<<<<<< HEAD
           cargo build --release
-=======
-          cargo run --release
->>>>>>> 9ab6f415b2b109eeb02afc64cd254d58ace3929d
