@@ -20,7 +20,6 @@ jobs:
         username: ${{ secrets.USERNAME }}
         port: ${{ secrets.PORT }}
         passphrase: ${{ secrets.PARAPHRASE }}
-        password: ${{ secrets.PASSWORD }}
 
         script: |
           echo "Changing Directory to Geometry-Jest"
@@ -36,4 +35,8 @@ jobs:
           cd ..
           echo "Starting Server"
           cd server
+<<<<<<< HEAD
           cargo build --release
+=======
+          cargo run --release
+>>>>>>> 9ab6f415b2b109eeb02afc64cd254d58ace3929d
