@@ -13,7 +13,7 @@ jobs:
 
     steps:
     - name: executing remote ssh commands using password
-      uses: appleboy/ssh-action@master
+      uses: appleboy/ssh-action@v0.1.4
       with:
         host: ${{ secrets.HOST }}
         key: ${{ secrets.KEY }}
@@ -36,4 +36,4 @@ jobs:
           cd ..
           echo "Starting Server"
           cd server
-          cargo run --release
+          cargo build --release
