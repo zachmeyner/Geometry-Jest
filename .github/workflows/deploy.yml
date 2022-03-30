@@ -15,12 +15,17 @@ jobs:
     - name: SSH Remote Commands
       uses: appleboy/ssh-action@v0.1.4
 
+      env: 
+        PATH: ${{ secrets.PATH }}
+
       with:
         host: ${{ secrets.HOST }}
         key: ${{ secrets.KEY }}
         username: ${{ secrets.USERNAME }}
         port: ${{ secrets.PORT }}
         passphrase: ${{ secrets.PARAPHRASE }}
+
+        envs: PATH
 
         script: |
           echo "Changing Directory to Geometry-Jest"
@@ -30,10 +35,8 @@ jobs:
           echo "Git Pull Complete"
           echo "Rebuilding Frontend"
           cd frontend
-        env: |
           npm ci
-          npm build
-        script: |
+          npm run build
           echo "Frontend Build Complete"
           cd ..
           echo "Starting Server"
