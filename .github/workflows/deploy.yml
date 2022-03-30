@@ -30,9 +30,10 @@ jobs:
           echo "Git Pull Complete"
           echo "Rebuilding Frontend"
           cd frontend
-          ./install_and_build.sh
+          ~/.nvm/versions/node/v17.8.0/bin/npm ci
+          ~/.nvm/versions/node/v17.8.0/bin/npm build
           echo "Frontend Build Complete"
           cd ..
           echo "Starting Server"
           cd server
-          cargo build --release
+          ~/.cargo/bin/cargo build --release
