@@ -32,10 +32,6 @@ jobs:
           cd frontend
           ../../.nvm/versions/node/v17.8.0/bin/npm ci
           ../../.nvm/versions/node/v17.8.0/bin/npm run build
-          cd ../..
-          ls -a
           echo "Frontend Build Complete"
           cd ..
           echo "Starting Server"
-          cd server
-          ~/.cargo/bin/cargo build --release
