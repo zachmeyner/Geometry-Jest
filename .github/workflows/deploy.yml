@@ -25,14 +25,12 @@ jobs:
         script: |
           echo "Changing Directory to Geometry-Jest"
           cd Geometry-Jest
-          mkdir hi
           echo "Pulling From Github"
           git pull -q origin main
           echo "Git Pull Complete"
           echo "Rebuilding Frontend"
           cd frontend
-          npm ci
-          npm build
+          ./install_and_build.sh
           echo "Frontend Build Complete"
           cd ..
           echo "Starting Server"
