@@ -26,7 +26,8 @@ jobs:
           echo "Changing Directory to Geometry-Jest"
           cd Geometry-Jest
           echo "Pulling From Github"
-          git pull -q origin main
+          git config --global user.name
+          git pull origin main
           echo "Git Pull Complete"
           echo "Rebuilding Frontend"
           cd frontend
