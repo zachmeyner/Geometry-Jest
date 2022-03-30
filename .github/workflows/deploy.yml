@@ -25,6 +25,7 @@ jobs:
         script: |
           echo "Changing Directory to Geometry-Jest"
           cd Geometry-Jest
+          ls
           echo "Pulling From Github"
           git pull -q origin main
           echo "Git Pull Complete"
