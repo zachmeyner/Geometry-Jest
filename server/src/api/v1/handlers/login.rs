@@ -27,7 +27,7 @@ pub struct LoginForm<'r> {
  */
 #[post("/login", format = "json", data = "<args>")]
 pub async fn login(args: Json<LoginForm<'_>>) -> status::Custom<content::Json<String>> {
-    let go: bool = crate::controllers::users::check_if_exists(args.username).await;
+    let go: bool = crate::controllers::users::user_does_not_exist(args.username).await;
 
     if !go {
         let salt = crate::controllers::users::get_salt(args.username).await;

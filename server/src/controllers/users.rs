@@ -29,7 +29,7 @@ pub async fn create_user(username: String, password: String, salt: String) {
  * Returns false if the user IS in the database
  * ? Should this be reversed? Give me your opinion by leaving a comment in discord
  */
-pub async fn check_if_exists(username: &'_ str) -> bool {
+pub async fn user_does_not_exist(username: &'_ str) -> bool {
     let conn = crate::tools::establish::establish_connection().await;
 
     let data = diesel::sql_query("SELECT * FROM users WHERE username = ?;")
@@ -48,7 +48,7 @@ pub async fn check_if_exists(username: &'_ str) -> bool {
  * Gets salt for a given username
  * Takes in username to check in the database
  * Outputs string that is the users salt
- * * This function should NEVER be called before check_if_exists
+ * * This function should NEVER be called before user_does_not_exist
  */
 pub async fn get_salt(username: &'_ str) -> String {
     let conn = crate::tools::establish::establish_connection().await;
@@ -65,7 +65,7 @@ pub async fn get_salt(username: &'_ str) -> String {
  * Gets hashed password for given username
  * Takes in username to check the database
  * Outputs string that is the users hashed password
- * * This function should NEVER be called before check_if_exists
+ * * This function should NEVER be called before user_does_not_exist
  */
 pub async fn get_hashpass(username: &'_ str) -> String {
     let conn = crate::tools::establish::establish_connection().await;

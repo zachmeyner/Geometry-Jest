@@ -21,7 +21,7 @@ pub struct RegInfo<'r> {
  */
 #[post("/register", format = "json", data = "<reg>")]
 pub async fn register(reg: Json<RegInfo<'_>>) -> status::Custom<content::Json<&'static str>> {
-    let go: bool = crate::controllers::users::check_if_exists(reg.username).await;
+    let go: bool = crate::controllers::users::user_does_not_exist(reg.username).await;
 
     if go {
         let salt = crate::tools::createsalt::create_salt().await;
