@@ -30,8 +30,8 @@ jobs:
           echo "Git Pull Complete"
           echo "Rebuilding Frontend"
           cd frontend
-          /.nvm/versions/node/v17.8.0/bin/npm ci
-          /.nvm/versions/node/v17.8.0/bin/npm run build
+          /home/ubuntu/.nvm/versions/node/v17.8.0/bin/npm ci
+          /home/ubuntu/.nvm/versions/node/v17.8.0/bin/npm run build
           echo "Frontend Build Complete"
           cd ..
           echo "Starting Server"
