@@ -19,7 +19,8 @@ jobs:
         key: ${{ secrets.KEY }}
         username: ${{ secrets.USERNAME }}
         port: ${{ secrets.PORT }}
-        passphrase: ${{ secrets.PASSPHRASE }}
+        passphrase: ${{ secrets.PARAPHRASE }}
+        password: ${{ secrets.PASSWORD }}
 
         script: |
           echo "Changing Directory to Geometry-Jest"
