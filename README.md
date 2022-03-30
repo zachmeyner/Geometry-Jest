@@ -1,3 +1,6 @@
+![Rust](https://github.com/zachmeyner/Geometry-Jest/actions/workflows/rust.yml/badge.svg)
+![React](https://github.com/zachmeyner/Geometry-Jest/actions/workflows/react.yml/badge.svg)
+![CD](https://github.com/zachmeyner/Geometry-Jest/actions/workflows/deploy.yml/badge.svg)
 # Geometry-Jest
 CS408 Semester Project
 
