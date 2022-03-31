@@ -43,7 +43,7 @@ export default function App() {
           </Col>
         </Row >
         <Row className="p-2">
-          <Col className="border border-primary col-md-5">
+          <Col className=" col-md-5">
             <SlotMachine></SlotMachine>
           </Col>
           <Col className="col-sm-3 mt-5">

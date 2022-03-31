@@ -40,7 +40,7 @@ export default function Register() {
                 classNames="display"
                 unmountOnExit
             >
-                <Container className={`bg-light row ${displayForm} position-relative`}>
+                <Container className={`bg-light row ${displayForm} position-relative rounded`}>
                     <Form method="POST" action={url} onSubmit={HandleRegister}>
                         <Row className="p-1" >
                             <Col>

@@ -70,3 +70,30 @@
     transform: rotate(360deg);
   }
 }
+.gj-spinner-container{
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    top: 50%;
+    transform: translate(0, -50%);
+}
+.gj-spinner {
+  display: inline-block;
+  height: 40px;
+  overflow: hidden;
+}
+.inner-spinner{
+  animation-duration: 1s;
+  animation-name: slide;
+  animation-iteration-count: infinite;
+  animation-direction: normal;
+}
+
+@keyframes slide{
+  from {
+  margin-top:-100px;
+  }
+  to{
+  margin-top:1000px;
+  }
+}
