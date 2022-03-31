@@ -34,8 +34,9 @@ pub async fn register(reg: Json<RegInfo<'_>>) -> status::Custom<content::Json<&'
 
         crate::controllers::users::create_user(reg.username.to_string(), hashed, salt).await;
 
-        status::Custom(Status::Accepted, content::Json("{ \"Created\": true }"))
+        status::Custom(Status::Accepted, content::Json(""))
     } else {
-        status::Custom(Status::Conflict, content::Json("{ \"Created\": false }"))
+        status::Custom(Status::Conflict, content::Json(""))
     }
 }
+
