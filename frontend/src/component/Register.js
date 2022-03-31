@@ -36,12 +36,12 @@ export default function Register() {
             <button className="gj-button translate-middle" onClick={ShowForm}>Submit Score</button>
             <CSSTransition
                 in={displayFormBool}
-                timeout={200}
+                timeout={40}
                 classNames="display"
                 unmountOnExit
             >
-                <Container className={`bg-light row ${displayForm} position-relative rounded`}>
-                    <Form method="POST" action={url} onSubmit={HandleRegister}>
+                <Container className={`gj-bg gj-login-form row ${displayForm} position-relative rounded`}>
+                    <Form method="POST" action={url} onSubmit={HandleRegister} >
                         <Row className="p-1" >
                             <Col>
                                 <Form.Control autoFocus placeholder="Username" name="user" />
@@ -51,7 +51,7 @@ export default function Register() {
                                 <Form.Control placeholder="Password" name="pass" />
                             </Col>
                             <Col sm={1}>
-                                <button type="button" className="btn-close" aria-label="Close" onClick={ShowForm}></button>
+                                <button type="button" className="btn-close btn-close-white" aria-label="Close" onClick={ShowForm}></button>
                             </Col>
                         </Row>
                         <Row className="p-1">

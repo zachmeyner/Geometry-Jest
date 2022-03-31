@@ -8,6 +8,9 @@
     rgba(34, 39, 106, 1) 90%
   );
 }
+.gj-main{
+  background-color: rgb(4, 4, 44);
+}
 .gj-betButton {
   background-color: #e2c600;
 }
@@ -17,22 +20,30 @@
   font-size: 2.5em;
   color: #ffffff;
   text-shadow: #013c80;
-  background-color: #046ff0;
+  background-color: #456081;
   border: #013c80 solid 2px;
   border-radius: 10px;
+  -webkit-box-shadow: 5px 5px 15px 2px #000000; 
+ box-shadow: 5px 5px 15px 2px #000000;
 }
 .gj-button:hover {
-  background-color: #0450b0;
+  background-color: #8da5c3;
 }
 .gj-button:active {
   box-shadow: 1px 1px 10px 2px #046ff0;
-  background-color: #3386eb;
+  background-color: #515b69;
+}
+.gj-login-form{
+  -webkit-box-shadow: 5px 5px 15px 2px #000000; 
+  box-shadow: 5px 5px 15px 2px #000000;
 }
 .gj-onTop {
   z-index: 5000;
 }
 .App {
   text-align: center;
+  -webkit-box-shadow: 5px 5px 50px 23px #000000; 
+  box-shadow: 5px 5px 50px 23px #000000;
 }
 .App-logo {
   height: 40vmin;

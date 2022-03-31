@@ -1,4 +1,6 @@
 body {
+  background-image: url(./static/bg.png);
+  background-size: cover;
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
@@ -12,11 +14,11 @@ code {
     monospace;
 }
 :root {
-  --menu-starting-top: 0px;
-  --menu-ending-top: 25px;
-  --menu-width: 200px;
-  --menu-max-height: 200px;
-  --timeout: 200ms;
+  --menu-starting-top: -100px;
+  --menu-ending-top: 30px;
+  --menu-width: 100px;
+  --menu-max-height: 100px;
+  --timeout: 100ms;
 }
 .display-enter {
   top: var(--menu-starting-top);
