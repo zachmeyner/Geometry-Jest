@@ -29,9 +29,10 @@ jobs:
 
         script: |
           echo "Changing Directory to Geometry-Jest"
+          git config --user.name
           cd Geometry-Jest
           echo "Pulling From Github"
-          git pull --rebase
+          git pull origin main
           echo "Git Pull Complete"
           echo "Rebuilding Frontend"
           cd frontend
