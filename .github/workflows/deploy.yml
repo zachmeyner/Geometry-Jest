@@ -29,7 +29,6 @@ jobs:
 
         script: |
           echo "Changing Directory to Geometry-Jest"
-          git config --global user.name
           cd Geometry-Jest
           echo "Pulling From Github"
           git pull origin main
