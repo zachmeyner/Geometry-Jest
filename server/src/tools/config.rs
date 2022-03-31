@@ -12,6 +12,7 @@ pub struct Config {
     pub database_url: String,
     pub access_token_secret: String,
     pub refresh_token_secret: String,
+    pub front_end_dir: String,
 }
 
 /**
