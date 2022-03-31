@@ -8,7 +8,7 @@ export default function Register() {
     const [dataSent, setDataSent] = useState(["", ""]);
     const url = 'http://localhost:8000/register'
     function ShowForm() {
-        if (displayForm != 'd-none') {
+        if (displayForm !== 'd-none') {
             setDisplayForm('d-none');
             setDisplayFormBool(false);
         } else {

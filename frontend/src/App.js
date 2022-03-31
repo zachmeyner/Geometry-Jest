@@ -1,6 +1,6 @@
 import "./App.css";
 //import axios from "axios";
-import React, { useState } from "react";
+import React from "react";
 import Score from "./component/Score"
 import SlotMachine from "./component/SlotMachine"
 import Bet from "./component/Bet"
@@ -12,25 +12,7 @@ import Register from "./component/Register"
 import { Container, Row, Col } from "react-bootstrap";
 
 export default function App() {
-  const [score, setScore] = useState(0);
-  // getData = async () => { // removed const, return type
-  //   const response = await axios("http://localhost:8000/myrocket");
-  //   console.log(response.data);
-  // }
-  function onRegister() {
-    const test = { username: "daniel", password: "pass123" };
-    fetch('127.0.0.1:8000/login', {
-      method: "POST",
-      headers: {
-        'Content-type': 'application/json'
-      },
-      body: JSON.stringify(test)
-    })
-      .then((response) => response.json())
-      .then((result) => {
-        console.log(result)
-      })
-  }
+  //const [score, setScore] = useState(0);
   return (
     <Container className="App border border-dark mt-4 m-auto" >
       <Container className="bg-white p-2" >
@@ -47,7 +29,7 @@ export default function App() {
             <SlotMachine></SlotMachine>
           </Col>
           <Col className="col-sm-3 mt-5">
-            <Bet score={score}></Bet>
+            <Bet ></Bet>
           </Col>
           <Col>
             <HighScore></HighScore>
