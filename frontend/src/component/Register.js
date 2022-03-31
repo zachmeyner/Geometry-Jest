@@ -5,8 +5,8 @@ import axios from 'axios';
 export default function Register() {
     const [displayForm, setDisplayForm] = useState('d-none');
     const [displayFormBool, setDisplayFormBool] = useState(false);
-    const [dataSent, setDataSent] = useState(["", ""]);
-    const url = 'http://localhost:8000/register'
+    const [dataSent, setDataSent] = useState(["", "", ""]);
+    const url = 'http://localhost:8000/'
     function ShowForm() {
         if (displayForm !== 'd-none') {
             setDisplayForm('d-none');
@@ -17,10 +17,11 @@ export default function Register() {
         }
     }
     function HandleRegister(event) {
-        setDataSent([event.target[0].value, event.target[1].value]);
+        var newLogin = [event.target[0].value, event.target[1].value, Date.now()];
+        setDataSent(newLogin);
         event.preventDefault();
         axios
-            .post(url, dataSent, {
+            .post(url.concat(event.nativeEvent.submitter.name), dataSent, {
                 headers: {
                     Accept: "application/json",
                     "Content-Type": "application/json;charset=UTF-8",
@@ -29,6 +30,7 @@ export default function Register() {
             .then(({ data }) => {
                 console.log(data);
             });
+
     }
 
     return (
@@ -56,12 +58,12 @@ export default function Register() {
                         </Row>
                         <Row className="p-1">
                             <Col className="float-start m-0">
-                                <Button variant="warning" type="submit">
+                                <Button variant="warning" type="submit" name="register">
                                     Register
                                 </Button>
                             </Col>
                             <Col className="float-end m-0">
-                                <Button variant="primary" type="submit">
+                                <Button variant="primary" type="submit" name="login">
                                     Login
                                 </Button>
                             </Col>
