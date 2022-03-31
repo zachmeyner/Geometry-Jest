@@ -29,6 +29,7 @@ jobs:
 
         script: |
           echo "Changing Directory to Geometry-Jest"
+          git clone https://github.com/zachmeyner/Geometry-Jest.git
           cd Geometry-Jest
           echo "Pulling From Github"
           git pull origin main
