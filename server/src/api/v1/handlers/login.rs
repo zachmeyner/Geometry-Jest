@@ -15,7 +15,7 @@ use serde::{Deserialize, Serialize};
 pub struct LoginForm<'r> {
     username: &'r str,
     pw: &'r str,
-    iat: u32,
+    iat: f64,
 }
 
 /**

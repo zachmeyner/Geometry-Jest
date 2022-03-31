@@ -13,7 +13,7 @@ use sha2::Sha256;
 #[derive(Debug, Serialize)]
 pub struct Claims {
     username: String,
-    iat: u32,
+    iat: f64,
 }
 
 /**
@@ -23,7 +23,7 @@ pub struct Claims {
  * Signs username and login time with that key
  * Outputs the signed key as a string
  */
-pub async fn gen_auth_key(username: String, iat: u32) -> String {
+pub async fn gen_auth_key(username: String, iat: f64) -> String {
     dotenv().ok();
 
     let config = crate::tools::config::Config::from_env().unwrap();
