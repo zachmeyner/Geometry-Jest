@@ -24,4 +24,4 @@ Cargo.lock
 
 .env*
 
-Rocket.toml
+server/Rocket.toml
