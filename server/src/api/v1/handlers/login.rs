@@ -40,8 +40,12 @@ pub async fn login(args: Json<LoginForm<'_>>) -> status::Custom<content::Json<St
         if hashed == hashpass {
             let token_str =
                 crate::tools::gentoken::gen_auth_key(args.username.to_string(), args.iat).await;
+            let points = crate::controllers::users::get_points(args.username).await;
 
-            let ret = format!("{{ \"Token\": \"{}\" }}", token_str);
+            let ret = format!(
+                "{{ \"Token\": \"{}\",\n\"CurrentPoints\": {} }}",
+                token_str, points
+            );
 
             status::Custom(Status::Accepted, content::Json(ret))
         } else {

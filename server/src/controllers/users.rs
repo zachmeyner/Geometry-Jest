@@ -77,3 +77,20 @@ pub async fn get_hashpass(username: &'_ str) -> String {
 
     return data[0].userpass.clone();
 }
+
+/**
+ * Gets the points for a given user
+ * Takes in username to check the database
+ * Outputs high score from the users database row
+ * * This function should never be called before user_does_not_exist
+ */
+pub async fn get_points(username: &'_ str) -> i32 {
+    let conn = crate::tools::establish::establish_connection().await;
+
+    let data = diesel::sql_query("SELECT * FROM users WHERE username = ?;")
+        .bind::<Char, _>(username)
+        .load::<User>(&conn)
+        .unwrap();
+
+    data[0].highscore.unwrap_or(0)
+}
