@@ -2,6 +2,7 @@ use crate::diesel::RunQueryDsl;
 use crate::models::models::{NewUser, User};
 use crate::models::schema::users;
 use diesel::types::Char;
+use std::vec::Vec;
 
 /**
  * Function used to add a new user to the database
@@ -93,4 +94,33 @@ pub async fn get_points(username: &'_ str) -> i32 {
         .unwrap();
 
     data[0].highscore.unwrap_or(0)
+}
+
+/**
+ * Gets the top ten highscores from the database
+ * No input
+ * Outputs a vector with the ten highest scores, and the username with it
+ */
+pub async fn get_top_ten() -> Vec<(String, i32)> {
+    let conn = crate::tools::establish::establish_connection().await;
+
+    let data = diesel::sql_query("SELECT * FROM users")
+        .load::<User>(&conn)
+        .unwrap();
+
+    let mut top_ten: Vec<(String, i32)> = vec![("NO USER".to_string(), 0); 10];
+
+    for indv in data {
+        if indv.highscore.unwrap_or(0) >= top_ten[9].1 {
+            for i in 0..9 {
+                if indv.highscore.unwrap_or(0) >= top_ten[i].1 {
+                    top_ten.insert(i, (indv.username, indv.highscore.unwrap_or(0)));
+                    break;
+                }
+            }
+        }
+    }
+    top_ten.pop();
+
+    top_ten
 }
