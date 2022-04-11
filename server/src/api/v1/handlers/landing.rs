@@ -4,6 +4,9 @@ use rocket::http::Status;
 use rocket::response::{content, status};
 use std::io;
 use std::path::{Path, PathBuf};
+use crate::models::models::*;
+
+
 
 // Retrieves frontend js for the webpage
 #[get("/<file..>")]
@@ -28,30 +31,15 @@ pub async fn index() -> io::Result<NamedFile> {
 
 // Sends the frontend the leaderboard stats.
 #[get("/leaderboard")]
-pub async fn leaderboard() -> status::Custom<content::Json<String>> {
+pub async fn leaderboard() -> status::Custom<content::Json< vector<crate::models::models::Entry> > > {
     let top = crate::controllers::users::get_top_ten().await;
 
-    // println!("{:#?}", top);
-    let mut output_string: String = "{".to_string();
+    let top_return: vector<crate::models::models::Entry>;
 
-    for i in 0..top.len() {
-        output_string = output_string
-            + "\n\""
-            + i.to_string().as_str()
-            + "\": {\n"
-            + "\"username\": "
-            + "\""
-            + &top[i].0
-            + "\",\n\"score\": "
-            + &top[i].1.to_string().as_str()
-            + "\n}";
-
-        if i != 9 {
-            output_string = output_string + ","
-        }
+    for i in top.len() {
+        top_return[i].username = top[i].0;
+        top_return[i].highscore = top[i].1;
     }
 
-    output_string = output_string + "\n}";
-
-    status::Custom(Status::Accepted, content::Json(output_string))
+    status::Custom(Status::Accepted, top_return)
 }
