@@ -33,3 +33,18 @@ pub struct NewUser {
     pub userpass: String,
     pub salt: String,
 }
+
+
+
+//Big Yikes! What does serialize even mean? 0.o
+/**
+ * Entry
+ * Used to send data from database to the frontend
+ * 
+ * 
+*/
+#[derive(Debug, Serialize, Queryable, Clone, QueryableByName)]
+pub struct Entry {
+    username: String,
+    highscore: i32
+}
