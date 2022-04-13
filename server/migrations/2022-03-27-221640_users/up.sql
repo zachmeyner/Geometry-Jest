@@ -4,5 +4,5 @@ CREATE TABLE users(
     username VARCHAR(12) NOT NULL COMMENT 'Username',
     userpass CHAR(64) NOT NULL COMMENT 'Salted Password',
     salt CHAR(32) NOT NULL COMMENT 'Salt for the users password',
-    highscore int COMMENT 'Plyaers high score'
+    highscore int NOT NULL COMMENT 'Plyaers high score'
 ) DEFAULT CHARSET ascii COMMENT '';
