@@ -4,6 +4,6 @@ table! {
         username -> Varchar,
         userpass -> Char,
         salt -> Char,
-        highscore -> Nullable<Integer>,
+        highscore -> Integer,
     }
 }

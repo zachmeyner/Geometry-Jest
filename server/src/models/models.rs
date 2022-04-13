@@ -1,4 +1,5 @@
 use super::schema::users;
+use rocket::serde::Serialize;
 
 /**
  * User structure
@@ -9,14 +10,14 @@ use super::schema::users;
  * salt: salt for the user's password
  * highscore: The users highest score (New users have no highscore)
  */
-#[derive(QueryableByName, Queryable, Debug, Clone)]
+#[derive(QueryableByName, Queryable, Debug, Clone, Default)]
 #[table_name = "users"]
 pub struct User {
     pub id: i32,
     pub username: String,
     pub userpass: String,
     pub salt: String,
-    pub highscore: Option<i32>,
+    pub highscore: i32,
 }
 
 /**
@@ -26,25 +27,25 @@ pub struct User {
  * userpass: user's password (HASHED)
  * salt: salt for the user's password
  */
-#[derive(Insertable)]
+#[derive(Insertable, Default)]
 #[table_name = "users"]
 pub struct NewUser {
     pub username: String,
     pub userpass: String,
     pub salt: String,
+    pub highscore: i32,
 }
-
-
 
 //Big Yikes! What does serialize even mean? 0.o
 /**
  * Entry
  * Used to send data from database to the frontend
- * 
- * 
+ *
+ *
 */
 #[derive(Debug, Serialize, Queryable, Clone, QueryableByName)]
+#[table_name = "users"]
 pub struct Entry {
-    username: String,
-    highscore: i32
+    pub username: String,
+    pub highscore: i32,
 }
