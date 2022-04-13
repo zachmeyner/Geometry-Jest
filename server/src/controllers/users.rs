@@ -1,5 +1,5 @@
 use crate::diesel::RunQueryDsl;
-use crate::models::models::{NewUser, User};
+use crate::models::models::{Entry, NewUser, User};
 use crate::models::schema::users;
 use diesel::types::Char;
 use std::vec::Vec;
@@ -13,6 +13,7 @@ pub async fn create_user(username: String, password: String, salt: String) {
         username: username,
         userpass: password,
         salt: salt,
+        highscore: 0,
     };
 
     let conn = crate::tools::establish::establish_connection().await;
@@ -93,7 +94,7 @@ pub async fn get_points(username: &'_ str) -> i32 {
         .load::<User>(&conn)
         .unwrap();
 
-    data[0].highscore.unwrap_or(0)
+    data[0].highscore
 }
 
 /**
@@ -101,26 +102,23 @@ pub async fn get_points(username: &'_ str) -> i32 {
  * No input
  * Outputs a vector with the ten highest scores, and the username with it
  */
-pub async fn get_top_ten() -> Vec<(String, i32)> {
+pub async fn get_top_ten() -> Vec<Entry> {
     let conn = crate::tools::establish::establish_connection().await;
 
-    let data = diesel::sql_query("SELECT * FROM users")
-        .load::<User>(&conn)
-        .unwrap();
+    let mut data = diesel::sql_query(
+        "SELECT username, highscore FROM users ORDER BY highscore desc LIMIT 10;",
+    )
+    .load::<Entry>(&conn)
+    .unwrap();
 
-    let mut top_ten: Vec<(String, i32)> = vec![("NO USER".to_string(), 0); 10];
-
-    for indv in data {
-        if indv.highscore.unwrap_or(0) >= top_ten[9].1 {
-            for i in 0..9 {
-                if indv.highscore.unwrap_or(0) >= top_ten[i].1 {
-                    top_ten.insert(i, (indv.username, indv.highscore.unwrap_or(0)));
-                    break;
-                }
-            }
+    if data.len() < 10 {
+        let default = Entry {
+            username: "NO SCORE".to_string(),
+            highscore: 0,
+        };
+        while data.len() != 10 {
+            data.push(default.clone());
         }
     }
-    top_ten.pop();
-
-    top_ten
+    data
 }
