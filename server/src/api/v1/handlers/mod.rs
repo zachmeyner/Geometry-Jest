@@ -6,3 +6,6 @@ pub mod register;
 
 // Login
 pub mod login;
+
+//score update
+pub mod updatescore;

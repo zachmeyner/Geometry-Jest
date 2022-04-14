@@ -55,7 +55,8 @@ fn rocket() -> _ {
                 api::v1::handlers::landing::leaderboard,
                 api::v1::handlers::register::register,
                 api::v1::handlers::register::register_with_score,
-                api::v1::handlers::login::login
+                api::v1::handlers::login::login,
+                api::v1::handlers::updatescore::new_score,
             ],
         )
         .attach(cors)
