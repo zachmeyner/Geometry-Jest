@@ -20,11 +20,13 @@ export default function Register() {
         }
     }
     function HandleRegister() {
+        var dataSent = JSON.stringify({ username: user, password: pw });
+        alert(dataSent);
         axios
-            .post(url.concat('register'), user, pw, Date.now(), {
+            .post(url.concat('register'), dataSent, {
                 headers: {
-                    Accept: "application/json",
-                    "Content-Type": "application/json;charset=UTF-8",
+                    'Content-Type': "application/json; charset=utf-8",
+                    Accept: "application/json"
                 },
             })
             .then(({ data }) => {
@@ -42,7 +44,7 @@ export default function Register() {
                 unmountOnExit
             >
                 <Container className={`gj-bg gj-login-form row ${displayForm} position-relative rounded`}>
-                    <Form method="POST" action={url} >
+                    <Form  >
                         <Row className="p-1" >
                             <Col>
                                 <Form.Control autoFocus placeholder="Username" name="user" onChange={(e) => {
