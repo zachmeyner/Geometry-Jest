@@ -21,7 +21,6 @@ export default function Register() {
     }
     function HandleRegister() {
         var dataSent = JSON.stringify({ username: user, password: pw });
-        alert(dataSent);
         axios
             .post(url.concat('register'), dataSent, {
                 headers: {
@@ -33,7 +32,19 @@ export default function Register() {
                 console.log(data);
             });
     }
-
+    function HandleLogin() {
+        var dataSent = JSON.stringify({ username: user, pw: pw, iat: Date.now() });
+        axios
+            .post(url.concat('login'), dataSent, {
+                headers: {
+                    'Content-Type': "application/json; charset=utf-8",
+                    Accept: "application/json"
+                },
+            })
+            .then(({ data }) => {
+                console.log(data);
+            });
+    }
     return (
         <Container>
             <button className="gj-button translate-middle" onClick={ShowForm}>Submit Score</button>
@@ -67,7 +78,7 @@ export default function Register() {
                                 </Button>
                             </Col>
                             <Col className="float-end m-0">
-                                <Button variant="primary" type="submit" name="login">
+                                <Button variant="primary" name="login" onClick={HandleLogin}>
                                     Login
                                 </Button>
                             </Col>
