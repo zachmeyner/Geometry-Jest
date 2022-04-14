@@ -27,7 +27,7 @@ pub async fn index() -> io::Result<NamedFile> {
 }
 
 // Sends the frontend the leaderboard stats.
-#[get("/leaderboard")]
+#[post("/leaderboard")]
 pub async fn leaderboard() -> status::Custom<content::Json<String>> {
     let high_scores = crate::controllers::users::get_top_ten().await;
 
