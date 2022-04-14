@@ -49,3 +49,21 @@ pub struct Entry {
     pub username: String,
     pub highscore: i32,
 }
+
+#[derive(Debug, Queryable, QueryableByName)]
+#[table_name = "users"]
+pub struct UserSalt {
+    pub salt: String,
+}
+
+#[derive(Debug, Queryable, QueryableByName)]
+#[table_name = "users"]
+pub struct UserHash {
+    pub userpass: String,
+}
+
+#[derive(Debug, Queryable, QueryableByName)]
+#[table_name = "users"]
+pub struct UserScore {
+    pub highscore: i32,
+}

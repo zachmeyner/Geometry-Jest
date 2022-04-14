@@ -10,9 +10,9 @@ use serde::Deserialize;
  * password: input password
  */
 #[derive(Debug, Deserialize)]
-pub struct RegInfo<'r> {
-    username: &'r str,
-    password: &'r str,
+pub struct RegInfo {
+    username: String,
+    password: String,
 }
 /**
  * Takes in a username and password, salts then hashes the password.
@@ -20,8 +20,8 @@ pub struct RegInfo<'r> {
  * * All usernames coming from the frontend will be lowercase only.
  */
 #[post("/register", format = "json", data = "<reg>")]
-pub async fn register(reg: Json<RegInfo<'_>>) -> status::Custom<content::Json<&'static str>> {
-    let go: bool = crate::controllers::users::user_does_not_exist(reg.username).await;
+pub async fn register(reg: Json<RegInfo>) -> status::Custom<content::Json<&'static str>> {
+    let go: bool = crate::controllers::users::user_does_not_exist(reg.username.clone()).await;
 
     if go {
         let salt = crate::tools::createsalt::create_salt().await;
@@ -39,4 +39,3 @@ pub async fn register(reg: Json<RegInfo<'_>>) -> status::Custom<content::Json<&'
         status::Custom(Status::Conflict, content::Json(""))
     }
 }
-

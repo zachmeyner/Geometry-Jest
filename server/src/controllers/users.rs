@@ -1,5 +1,5 @@
 use crate::diesel::RunQueryDsl;
-use crate::models::models::{Entry, NewUser, User};
+use crate::models::models::*;
 use crate::models::schema::users;
 use diesel::types::Char;
 use std::vec::Vec;
@@ -29,9 +29,8 @@ pub async fn create_user(username: String, password: String, salt: String) {
  * Takes in the username to check the database for.
  * Returns true if the user is NOT in the database
  * Returns false if the user IS in the database
- * ? Should this be reversed? Give me your opinion by leaving a comment in discord
  */
-pub async fn user_does_not_exist(username: &'_ str) -> bool {
+pub async fn user_does_not_exist(username: String) -> bool {
     let conn = crate::tools::establish::establish_connection().await;
 
     let data = diesel::sql_query("SELECT * FROM users WHERE username = ?;")
@@ -52,12 +51,12 @@ pub async fn user_does_not_exist(username: &'_ str) -> bool {
  * Outputs string that is the users salt
  * * This function should NEVER be called before user_does_not_exist
  */
-pub async fn get_salt(username: &'_ str) -> String {
+pub async fn get_salt(username: String) -> String {
     let conn = crate::tools::establish::establish_connection().await;
 
-    let data = diesel::sql_query("SELECT * FROM users WHERE username = ?;")
+    let data = diesel::sql_query("SELECT salt FROM users WHERE username = ?;")
         .bind::<Char, _>(username)
-        .load::<User>(&conn)
+        .load::<UserSalt>(&conn)
         .unwrap();
 
     return data[0].salt.clone();
@@ -69,12 +68,12 @@ pub async fn get_salt(username: &'_ str) -> String {
  * Outputs string that is the users hashed password
  * * This function should NEVER be called before user_does_not_exist
  */
-pub async fn get_hashpass(username: &'_ str) -> String {
+pub async fn get_hashpass(username: String) -> String {
     let conn = crate::tools::establish::establish_connection().await;
 
-    let data = diesel::sql_query("SELECT * FROM users WHERE username = ?;")
+    let data = diesel::sql_query("SELECT userpass FROM users WHERE username = ?;")
         .bind::<Char, _>(username)
-        .load::<User>(&conn)
+        .load::<UserHash>(&conn)
         .unwrap();
 
     return data[0].userpass.clone();
@@ -86,12 +85,12 @@ pub async fn get_hashpass(username: &'_ str) -> String {
  * Outputs high score from the users database row
  * * This function should never be called before user_does_not_exist
  */
-pub async fn get_points(username: &'_ str) -> i32 {
+pub async fn get_points(username: String) -> i32 {
     let conn = crate::tools::establish::establish_connection().await;
 
     let data = diesel::sql_query("SELECT * FROM users WHERE username = ?;")
         .bind::<Char, _>(username)
-        .load::<User>(&conn)
+        .load::<UserScore>(&conn)
         .unwrap();
 
     data[0].highscore
