@@ -3,7 +3,6 @@ use crate::models::models::*;
 use crate::models::schema::users;
 use diesel::sql_types::Integer;
 use diesel::types::Char;
-use diesel::OptionalExtension;
 use std::vec::Vec;
 
 /**
