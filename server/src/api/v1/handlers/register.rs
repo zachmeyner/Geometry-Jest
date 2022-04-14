@@ -35,7 +35,7 @@ pub struct RegWithScore {
  */
 #[post("/register", format = "json", data = "<reg>")]
 pub async fn register(reg: Json<RegInfo>) -> status::Custom<content::Json<&'static str>> {
-    let go: bool = crate::controllers::users::user_does_not_exist(reg.username.clone()).await;
+    let go: bool = crate::controllers::users::user_does_not_exist(&reg.username).await;
 
     if go {
         let salt = crate::tools::createsalt::create_salt().await;
@@ -46,7 +46,7 @@ pub async fn register(reg: Json<RegInfo>) -> status::Custom<content::Json<&'stat
         // Hashes the Salted Password
         let hashed = crate::tools::hashstring::hash_string(salted_string).await;
 
-        crate::controllers::users::create_user(reg.username.to_string(), hashed, salt, 0).await;
+        crate::controllers::users::create_user(&reg.username, &hashed, &salt, 0).await;
 
         status::Custom(Status::Accepted, content::Json(""))
     } else {
@@ -62,7 +62,7 @@ pub async fn register(reg: Json<RegInfo>) -> status::Custom<content::Json<&'stat
 pub async fn register_with_score(
     reg: Json<RegWithScore>,
 ) -> status::Custom<content::Json<&'static str>> {
-    let go: bool = crate::controllers::users::user_does_not_exist(reg.username.clone()).await;
+    let go: bool = crate::controllers::users::user_does_not_exist(&reg.username).await;
 
     if go {
         let salt = crate::tools::createsalt::create_salt().await;
@@ -73,8 +73,7 @@ pub async fn register_with_score(
         // Hashes the Salted Password
         let hashed = crate::tools::hashstring::hash_string(salted_string).await;
 
-        crate::controllers::users::create_user(reg.username.to_string(), hashed, salt, reg.score)
-            .await;
+        crate::controllers::users::create_user(&reg.username, &hashed, &salt, reg.score).await;
 
         status::Custom(Status::Accepted, content::Json(""))
     } else {

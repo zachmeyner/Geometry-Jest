@@ -1,18 +1,20 @@
 use crate::diesel::RunQueryDsl;
 use crate::models::models::*;
 use crate::models::schema::users;
+use diesel::sql_types::Integer;
 use diesel::types::Char;
+use diesel::OptionalExtension;
 use std::vec::Vec;
 
 /**
  * Function used to add a new user to the database
  * Takes username, password, and salt for username to add to the database
  */
-pub async fn create_user(username: String, password: String, salt: String, score: i32) {
+pub async fn create_user(username: &String, password: &String, salt: &String, score: i32) {
     let new_user = NewUser {
-        username: username,
-        userpass: password,
-        salt: salt,
+        username: username.to_string(),
+        userpass: password.to_string(),
+        salt: salt.to_string(),
         highscore: score,
     };
 
@@ -30,7 +32,7 @@ pub async fn create_user(username: String, password: String, salt: String, score
  * Returns true if the user is NOT in the database
  * Returns false if the user IS in the database
  */
-pub async fn user_does_not_exist(username: String) -> bool {
+pub async fn user_does_not_exist(username: &String) -> bool {
     let conn = crate::tools::establish::establish_connection().await;
 
     let data = diesel::sql_query("SELECT * FROM users WHERE username = ?;")
@@ -51,7 +53,7 @@ pub async fn user_does_not_exist(username: String) -> bool {
  * Outputs string that is the users salt
  * * This function should NEVER be called before user_does_not_exist
  */
-pub async fn get_salt(username: String) -> String {
+pub async fn get_salt(username: &String) -> String {
     let conn = crate::tools::establish::establish_connection().await;
 
     let data = diesel::sql_query("SELECT salt FROM users WHERE username = ?;")
@@ -68,7 +70,7 @@ pub async fn get_salt(username: String) -> String {
  * Outputs string that is the users hashed password
  * * This function should NEVER be called before user_does_not_exist
  */
-pub async fn get_hashpass(username: String) -> String {
+pub async fn get_hashpass(username: &String) -> String {
     let conn = crate::tools::establish::establish_connection().await;
 
     let data = diesel::sql_query("SELECT userpass FROM users WHERE username = ?;")
@@ -85,7 +87,7 @@ pub async fn get_hashpass(username: String) -> String {
  * Outputs high score from the users database row
  * * This function should never be called before user_does_not_exist
  */
-pub async fn get_points(username: String) -> i32 {
+pub async fn get_points(username: &String) -> i32 {
     let conn = crate::tools::establish::establish_connection().await;
 
     let data = diesel::sql_query("SELECT * FROM users WHERE username = ?;")
@@ -120,4 +122,14 @@ pub async fn get_top_ten() -> Vec<Entry> {
         }
     }
     data
+}
+
+pub async fn update_score(username: &String, new_score: i32) {
+    let conn = crate::tools::establish::establish_connection().await;
+
+    diesel::sql_query("UPDATE users SET highscore = ? WHERE username = ?;")
+        .bind::<Integer, _>(new_score)
+        .bind::<Char, _>(username)
+        .execute(&conn)
+        .unwrap();
 }

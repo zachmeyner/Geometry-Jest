@@ -33,11 +33,11 @@ pub struct LoginReturn {
  */
 #[post("/login", format = "json", data = "<args>")]
 pub async fn login(args: Json<LoginForm>) -> status::Custom<content::Json<String>> {
-    let go: bool = crate::controllers::users::user_does_not_exist(args.username.clone()).await;
+    let go: bool = crate::controllers::users::user_does_not_exist(&args.username).await;
 
     if !go {
-        let salt = crate::controllers::users::get_salt(args.username.clone()).await;
-        let hashpass = crate::controllers::users::get_hashpass(args.username.clone()).await;
+        let salt = crate::controllers::users::get_salt(&args.username).await;
+        let hashpass = crate::controllers::users::get_hashpass(&args.username).await;
 
         let salted_string = format!("{}{}", args.pw, salt);
 
@@ -45,9 +45,8 @@ pub async fn login(args: Json<LoginForm>) -> status::Custom<content::Json<String
 
         if hashed == hashpass {
             let ret_struct = LoginReturn {
-                token: crate::tools::gentoken::gen_auth_key(args.username.to_string(), args.iat)
-                    .await,
-                current_points: crate::controllers::users::get_points(args.username.clone()).await,
+                token: crate::tools::gentoken::gen_auth_key(&args.username, args.iat).await,
+                current_points: crate::controllers::users::get_points(&args.username).await,
             };
 
             let ret_string = serde_json::to_string(&ret_struct).unwrap();
