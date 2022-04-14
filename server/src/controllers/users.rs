@@ -8,12 +8,12 @@ use std::vec::Vec;
  * Function used to add a new user to the database
  * Takes username, password, and salt for username to add to the database
  */
-pub async fn create_user(username: String, password: String, salt: String) {
+pub async fn create_user(username: String, password: String, salt: String, score: i32) {
     let new_user = NewUser {
         username: username,
         userpass: password,
         salt: salt,
-        highscore: 0,
+        highscore: score,
     };
 
     let conn = crate::tools::establish::establish_connection().await;
