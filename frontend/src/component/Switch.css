@@ -40,8 +40,6 @@
   display: none;
 }
 .vertical-switch > input[type=checkbox]:checked + .vertical-switch__slider:before {
-  /* transform: translateY(calc(100% + 140px));
-  transform: translateY(calc(100% - 100px)); */
   animation: activate 1s 1 ;
 }
 @keyframes activate{
@@ -52,7 +50,7 @@
     transform: translateY(calc(100% + 140px));
   }
   100%{
-    transform: translateY(calc(100% - 4 0px));
+    transform: translateY(calc(100% - 30px));
 
   }
 }
