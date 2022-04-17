@@ -8,6 +8,8 @@ import spin from './../static/spin.mp3'
 
 export default function SlotMachine({ reset }) {
     const [start, setStart] = useState(false);
+    const crankAudio = new Audio(crank);
+    const spinAudio = new Audio(spin);
 
     return (
         <Container className="h-100 w-auto rounded gj-bg position-relative">
@@ -41,8 +43,8 @@ export default function SlotMachine({ reset }) {
                             <label class="vertical-switch">
                                 <input type="checkbox" checked={start} onChange={() => {
                                     setStart(true);
-                                    new Audio(crank).play();
-                                    new Audio(spin).play();
+                                    crankAudio.play();
+                                    spinAudio.play();
 
                                     setTimeout(() => {
                                         setStart(false);
