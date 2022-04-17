@@ -3,6 +3,9 @@ import React, { useState } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import RollingItem from 'react-rolling-item';
 import tileImg from '../static/slot-tile.png';
+import crank from './../static/crank.mp3'
+import spin from './../static/spin.mp3'
+
 export default function SlotMachine({ reset }) {
     const [start, setStart] = useState(false);
 
@@ -38,9 +41,12 @@ export default function SlotMachine({ reset }) {
                             <label class="vertical-switch">
                                 <input type="checkbox" checked={start} onChange={() => {
                                     setStart(true);
+                                    new Audio(crank).play();
+                                    new Audio(spin).play();
+
                                     setTimeout(() => {
                                         setStart(false);
-                                    }, 2000);
+                                    }, 2500);
                                 }
                                 } />
                                 <span class="vertical-switch__slider"></span>
