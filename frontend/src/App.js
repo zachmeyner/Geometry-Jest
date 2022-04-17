@@ -1,6 +1,6 @@
 import "./App.css";
 //import axios from "axios";
-import React from "react";
+import React, { useState } from "react";
 import Score from "./component/Score"
 import SlotMachine from "./component/SlotMachine"
 import Bet from "./component/Bet"
@@ -13,6 +13,7 @@ import { Container, Row, Col } from "react-bootstrap";
 
 export default function App() {
   //const [score, setScore] = useState(0);
+  const [reset, setReset] = useState(false);
   return (
     <Container className=" App gj-main p-3 rounded" >
       <Row lg={4} className="p-2 gj-bg ">
@@ -25,7 +26,7 @@ export default function App() {
       </Row >
       <Row className="p-2">
         <Col className=" col-md-5">
-          <SlotMachine></SlotMachine>
+          <SlotMachine reset={reset}></SlotMachine>
         </Col>
         <Col className="col-sm-3 mt-5">
           <Bet ></Bet>
@@ -36,7 +37,7 @@ export default function App() {
       </Row>
       <Row className="p-2">
         <Col className="col-md-5">
-          <QuestionBox></QuestionBox>
+          <QuestionBox setReset={setReset}></QuestionBox>
         </Col>
         <Col className="col-md-4 ms-auto">
           <Credits></Credits>

@@ -1,25 +1,54 @@
+import "./Switch.css";
 import React, { useState } from "react";
-import { Container } from "react-bootstrap";
-export default function SlotMachine() {
-    const [spin, setSpin] = useState("");
-    function HandleSpin() {
-        if (spin === "") {
-            setSpin("inner-spinner");
-        } else {
-            setSpin("");
-        }
-    }
+import { Container, Row, Col } from "react-bootstrap";
+import RollingItem from 'react-rolling-item';
+import tileImg from '../static/slot-tile.png';
+export default function SlotMachine({ reset }) {
+    const [start, setStart] = useState(false);
+
     return (
         <Container className="h-100 w-auto rounded gj-bg position-relative">
-            <Container className="w-75 h-75 top-50 position-absolute start-50 translate-middle bg-secondary rounded gj-spinner-container">
-                <Container className="h-75 w-25 bg-light top-50 position-absolute start-50 translate-middle gj-spinner">
-                    <div className={`fs-3 ${spin}`}>this is a test</div>
-                </Container>
-                <Container className="h-75 w-25 bg-light top-50 position-absolute start-0 ms-5 translate-middle gj-spinner">
-                    <div className={`fs-1 ${spin}`}>_</div>
-                </Container>
-            </Container>
-            <button onClick={HandleSpin}>click</button>
+            <Row>
+                <Col lg={10}>
+                    <RollingItem
+                        on={start}
+                        column={3}
+                        backgroundImage={tileImg}
+                        backgroundSize="180px 570px"
+                        introItemInfo={{ x: -28, y: -200 }}
+                        itemInfo={
+                            [
+                                { x: -20, y: -20, id: 'line', probability: 0 },
+                                { x: -28, y: -200, id: 'plane', probability: 0 },
+                                { x: -28, y: -385, id: 'point', probability: 0 },
+                            ]
+                        }
+                        width={120}
+                        height={183}
+                        startDelay={50}
+                        completionAnimation={true}
+                        rootClassName="tiles"
+                        onProgress={(progress, result) => { console.log(result) }}
+                        reset={reset}
+                    />
+                </Col>
+                <Col className="pt-2">
+                    <div className="switch">
+                        <div class="srow">
+                            <label class="vertical-switch">
+                                <input type="checkbox" checked={start} onChange={() => {
+                                    setStart(true);
+                                    setTimeout(() => {
+                                        setStart(false);
+                                    }, 2000);
+                                }
+                                } />
+                                <span class="vertical-switch__slider"></span>
+                            </label>
+                        </div>
+                    </div>
+                </Col>
+            </Row>
         </Container >
     );
 }
