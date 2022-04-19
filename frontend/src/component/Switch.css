@@ -9,7 +9,12 @@
   border-radius: 10px;
   box-shadow: 0px 10px 10px rgba(115, 144, 147, 0.1411764706), 0px 20px 20px rgba(115, 144, 147, 0.1411764706);
 }
-
+.srow-disabled {
+  padding: 20px;
+  background: #676765;
+  border-radius: 10px;
+  box-shadow: 0px 10px 10px rgba(115, 144, 147, 0.1411764706), 0px 20px 20px rgba(115, 144, 147, 0.1411764706);
+}
 .vertical-switch {
   position: relative;
   display: inline-block;

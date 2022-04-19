@@ -14,6 +14,10 @@ import { Container, Row, Col } from "react-bootstrap";
 export default function App() {
   //const [score, setScore] = useState(0);
   const [reset, setReset] = useState(false);
+  const [result, setResult] = useState(["", "", ""]);
+  const [question, setQuestion] = useState([]);
+  const [buttonStatus, setButtonStatus] = useState(true);
+  const [disableSlot, setDisableSlot] = useState(false);
   return (
     <Container className=" App gj-main p-3 rounded" >
       <Row lg={4} className="p-2 gj-bg ">
@@ -24,25 +28,27 @@ export default function App() {
           <Score ></Score>
         </Col>
       </Row >
-      <Row className="p-2">
-        <Col className=" col-md-5">
-          <SlotMachine reset={reset}></SlotMachine>
+      <Row className="w-auto ">
+        <Col className="col-md-5 px-5">
+          <Row className="pt-2 w-auto">
+            <SlotMachine reset={reset} result={result} setResult={setResult} setQuestion={setQuestion} setButtonStatus={setButtonStatus} disableSlot={disableSlot} setDisableSlot={setDisableSlot}></SlotMachine>
+          </Row>
+          <Row className="h-50 py-2 w-auto">
+            <QuestionBox setReset={setReset} setResult={setResult} question={question} setQuestion={setQuestion} setButtonStatus={setButtonStatus} buttonStatus={buttonStatus} setDisableSlot={setDisableSlot}></QuestionBox>
+          </Row>
         </Col>
         <Col className="col-sm-3 mt-5">
           <Bet ></Bet>
         </Col>
-        <Col>
-          <HighScore></HighScore>
+        <Col >
+          <Row>
+            <HighScore></HighScore>
+          </Row>
+          <Row className="h-40 py-2">
+            <Credits></Credits>
+          </Row>
         </Col>
-      </Row>
-      <Row className="p-2">
-        <Col className="col-md-5">
-          <QuestionBox setReset={setReset}></QuestionBox>
-        </Col>
-        <Col className="col-md-4 ms-auto">
-          <Credits></Credits>
-        </Col>
-      </Row>
-    </Container>
+      </Row >
+    </Container >
   );
 }
