@@ -8,13 +8,14 @@ export default function Register() {
     const [displayFormBool, setDisplayFormBool] = useState(false);
     const [user, setUser] = useState("");
     const [pw, setPw] = useState("");
+    const clickAudio = new Audio(click);
     const url = 'http://127.0.0.1:8000/';
     function ShowForm() {
         if (displayForm !== 'd-none') {
             setDisplayForm('d-none');
             setDisplayFormBool(false);
         } else {
-            new Audio(click).play()
+            clickAudio.play()
             setDisplayForm('d-flex');
             setDisplayFormBool(true);
         }

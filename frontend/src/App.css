@@ -8,6 +8,16 @@
     rgba(34, 39, 106, 1) 90%
   );
 }
+.gj-text-bg {
+  border: #e2c600 solid 2px;
+  background: rgb(4, 4, 44);
+
+}
+.gj-questionbox-bg {
+  border: #e2c600 solid 2px;
+  border-radius: 20px;
+  background: rgb(49, 49, 76);
+}
 .gj-main{
   background-color: rgb(4, 4, 44);
 }
@@ -52,6 +62,15 @@
 .no-resize {
   resize: none;
 }
+.h-90{
+  height:90%;
+}
+.h-80{
+  height:80%;
+}
+.h-40{
+  height:40%;
+}
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
@@ -81,30 +100,128 @@
     transform: rotate(360deg);
   }
 }
-.gj-spinner-container{
-    position: absolute;
-    width: 100%;
-    text-align: center;
-    top: 50%;
-    transform: translate(0, -50%);
-}
-.gj-spinner {
-  display: inline-block;
-  height: 40px;
-  overflow: hidden;
-}
-.inner-spinner{
-  animation-duration: 0.5s;
-  animation-name: slide;
-  animation-iteration-count: infinite;
-  animation-direction: normal;
+.tiles{
+  padding-top: 2em;
 }
 
-@keyframes slide{
-  from {
-  margin-top:-100px;
+.gradient-box {
+  color: #ffffff;
+  padding: 30px;
+  text-align: center;
+  border-radius: 4px;
+  position: relative;
+}
+
+.gradient-box.show:after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 4px;
+  background: linear-gradient(120deg, #8a2222, #381406, #8a2222);
+  background-size: 300% 300%;
+  clip-path: polygon(0% 100%, 3px 100%, 3px 3px, calc(100% - 3px) 3px, calc(100% - 3px) calc(100% - 3px), 3px calc(100% - 3px), 3px 100%, 100% 100%, 100% 0%, 0% 0%);
+}
+
+.gradient-box.start:after {
+  animation: start 0.5s forwards ease-in-out reverse, gradient-animation 2s ease-in-out infinite;
+}
+
+@keyframes gradient-animation {
+  0% {
+    background-position: 15% 0%;
   }
-  to{
-  margin-top:400px;
+  50% {
+    background-position: 85% 100%;
+  }
+  100% {
+    background-position: 15% 0%;
+  }
+}
+
+@keyframes start {
+  0% {
+    clip-path: polygon(0% 100%, 3px 100%, 3px 3px, calc(100% - 3px) 3px, calc(100% - 3px) calc(100% - 3px), 3px calc(100% - 3px), 3px 100%, 100% 100%, 100% 0%, 0% 0%);
+  }
+  25% {
+    clip-path: polygon(0% 100%, 3px 100%, 3px 3px, calc(100% - 3px) 3px, calc(100% - 3px) calc(100% - 3px), calc(100% - 3px) calc(100% - 3px), calc(100% - 3px) 100%, 100% 100%, 100% 0%, 0% 0%);
+  }
+  50% {
+    clip-path: polygon(0% 100%, 3px 100%, 3px 3px, calc(100% - 3px) 3px, calc(100% - 3px) 3px, calc(100% - 3px) 3px, calc(100% - 3px) 3px, calc(100% - 3px) 3px, 100% 0%, 0% 0%);
+  }
+  75% {
+    -webkit-clip-path: polygon(0% 100%, 3px 100%, 3px 3px, 3px 3px, 3px 3px, 3px 3px, 3px 3px, 3px 3px, 3px 0%, 0% 0%);
+  }
+  100% {
+    -webkit-clip-path: polygon(0% 100%, 3px 100%, 3px 100%, 3px 100%, 3px 100%, 3px 100%, 3px 100%, 3px 100%, 3px 100%, 0% 100%);
+  }
+}
+
+
+.gj-oButton:enabled {
+  display: inline;
+  width: 90px;
+  height: 50px;
+  color: #363c3d;
+  font-size: 18px;
+  font-weight: 300;
+  font-family: "Open Sans", sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 1.3px;
+  border: none;
+  border-radius: 4px;
+  background: rgb(226, 198, 0);
+  box-shadow: 0 0 0 0 rgba(226, 198, 0, 0.6);
+  animation: pulse 2s infinite;
+}
+.gj-oButton-current {
+  display: inline;
+  width: 90px;
+  height: 50px;
+  color: #363c3d;
+  font-size: 18px;
+  font-weight: 300;
+  font-family: "Open Sans", sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 1.3px;
+  border: none;
+  border-radius: 4px;
+  background: rgb(255, 244, 160);
+  box-shadow: 0 0 0 3px rgba(226, 198, 0, 0.6);
+  animation: pulse 3s infinite;
+} 
+.gj-oButton:disabled {
+  display: inline;
+  width: 90px;
+  height: 50px;
+  color: #363c3d;
+  font-size: 18px;
+  font-weight: 300;
+  font-family: "Open Sans", sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 1.3px;
+  border: none;
+  border-radius: 4px;
+  background: rgb(168, 168, 168);
+  box-shadow: 0 0 0 0 rgba(226, 198, 0, 0.6);
+}
+
+.gj-oButton:hover {
+  animation: none;
+}
+
+@keyframes pulse {
+  0% {
+    letter-spacing: 1.3px;
+  }
+  70% {
+    letter-spacing: 1.9px;
+    box-shadow: 0 0 0 5px rgba(0, 253, 222, 0);
+  }
+  100% {
+    letter-spacing: 1.3px;
+    box-shadow: 0 0 0 0 rgba(0, 253, 222, 0);
   }
 }
