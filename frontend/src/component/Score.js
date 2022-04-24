@@ -1,9 +1,9 @@
 import React from "react";
 import { Container } from "react-bootstrap";
-export default function Score() {
+export default function Score({ score }) {
     return (
-        <Container className="border text-light">
-            <h2>Score: 000000000</h2>
-        </Container>
+        <Container className=" text-light">
+            < h1 > Score: {score}</h1 >
+        </Container >
     )
 }

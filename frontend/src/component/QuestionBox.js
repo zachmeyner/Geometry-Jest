@@ -1,39 +1,56 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Container, Row } from "react-bootstrap";
 import click from './../static/clickAnswerChoice.mp3'
 import clickSame from './../static/clickSameAnswer.mp3'
-export default function QuestionBox({ setReset, setResult, question, setQuestion, buttonStatus, setButtonStatus, setDisableSlot }) {
+import correct from './../static/correct.mp3'
+import incorrect from './../static/incorrect.mp3'
+
+export default function QuestionBox({ setReset, setResult, question, setQuestion, buttonStatus, setButtonStatus, expire, setStart, score, setScore, bet, setDisable }) {
     const [answer, setAnswer] = useState(-1);
     const [point, setPoint] = useState("gj-oButton");
     const [line, setLine] = useState("gj-oButton");
     const [plane, setPlane] = useState("gj-oButton");
     const clickAudio = new Audio(click);
     const clickSameAudio = new Audio(clickSame);
+    const correctAudio = new Audio(correct);
+    const incorrectAudio = new Audio(incorrect);
 
+    useEffect(() => {
+        if (expire) {
+            setQuestion([`You scored ${score}.`]);
+            setPoint("gj-oButton");
+            setLine("gj-oButton");
+            setPlane("gj-oButton");
+            setButtonStatus(true);
+        }
+
+    }, [expire, score, setQuestion, setPoint, setLine, setPlane, setButtonStatus]);
     function ResetSlot() {
         if (answer === -1) {
-            alert("choose")
+            console.log("choose");
         } else {
-            setResult(["", "", ""])
-            setDisableSlot(false);
+            setResult(["", "", ""]);
             setTimeout(() => {
                 setReset(true);
             }, 100);
             setReset(false);
-            setQuestion([]);
+            setDisable(false);
+            setStart(false);
             setButtonStatus(true);
             setPoint("gj-oButton");
             setLine("gj-oButton");
             setPlane("gj-oButton");
             if (Number(question[1]) === Number(answer)) {
                 setAnswer(-1);
-                alert("correct")
+                correctAudio.play();
+                setScore(Math.ceil(score + bet + (bet * 0.5)));
+                setQuestion(["Correct!"]);
             } else {
                 setAnswer(-1);
-                alert("wrong")
+                incorrectAudio.play();
+                setQuestion(["Wrong!"]);
             }
         }
-
     }
     function HandleClick(e) {
         if (e.target.value === answer) {
@@ -64,7 +81,7 @@ export default function QuestionBox({ setReset, setResult, question, setQuestion
                     {question[0]}
                 </Container>
             </Row>
-            <Row className="w-100 pt-4 px-2 float-start">
+            <Row className="w-100 pt-4 px-2 float-start d-inline">
                 <Container className="w-100 ">
                     <button onClick={(e) => { HandleClick(e) }} className={`${point}`} value={1} disabled={buttonStatus} id="point">Point</button> &nbsp;&nbsp;&nbsp;
                     <button onClick={(e) => { HandleClick(e) }} className={`${line}`} value={2} disabled={buttonStatus} id="line">Line</button> &nbsp;&nbsp;&nbsp;
