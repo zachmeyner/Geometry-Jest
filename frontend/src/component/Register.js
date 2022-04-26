@@ -85,7 +85,16 @@ export default function Register({ score, setScore, url, expire, setExpire, setS
                 setShow("d-none")
                 setDisplayFormBool(false);
                 setToken(data.token);
-                if (data.current_points > pbScore) {
+                if (pbScore > data.current_points) {
+                    dataSent = JSON.stringify({ username: user, token: token, highscore: pbScore })
+                    console.log(dataSent);
+                    axios.put(url.concat('newscore'), dataSent, {
+                        headers: {
+                            'Content-Type': "application/json; charset=utf-8",
+                            Accept: "application/json"
+                        },
+                    });
+                } else {
                     setpbScore(data.current_points);
                 }
             });
