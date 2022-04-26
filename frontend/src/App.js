@@ -11,7 +11,7 @@ import Timer from "./component/Timer"
 import { Container, Row, Col } from "react-bootstrap";
 
 export default function App() {
-  const url = 'http://geometryjest.zacharymeyner.com:8000/';
+  const url = 'http://geometryjest.zacharymeyner.com/';
   const [score, setScore] = useState(10);
   const [bet, setBet] = useState(0);
   const [reset, setReset] = useState(false);
