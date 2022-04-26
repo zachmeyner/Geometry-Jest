@@ -23,6 +23,8 @@ export default function App() {
   const [expire, setExpire] = useState(false);
   const [disable, setDisable] = useState(false);
   const [refresh, setRefresh] = useState(true);
+  const [key, setKey] = useState(0);
+
   return (
     <Container className=" App gj-main p-2  " >
       <Row className="gj-bg w-100 ms-1">
@@ -50,10 +52,10 @@ export default function App() {
         </Col>
         <Col lg={3} className="h-100 p-1 "  >
           <Row lg={1} className="pe-3 ">
-            <Bet score={score} bet={bet} setBet={setBet} setDisableSlot={setDisableSlot} setScore={setScore} disable={disable} setDisable={setDisable} setQuestion={setQuestion} expire={expire}></Bet>
+            <Bet score={score} bet={bet} setBet={setBet} setDisableSlot={setDisableSlot} setScore={setScore} disable={disable} setDisable={setDisable} setQuestion={setQuestion} expire={expire} key={key} setKey={setKey} ></Bet>
           </Row>
           <Row lg={1} className="ms-4 mt-5 pt-4 ps-3 pt-5">
-            <Timer start={start} setExpire={setExpire} ></Timer>
+            <Timer start={start} setExpire={setExpire} key={key} setKey={setKey} ></Timer>
           </Row>
         </Col>
         <Col lg={4} className="pe-3 pt-1">

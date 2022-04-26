@@ -1,9 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import { Container } from "react-bootstrap";
 import { CountdownCircleTimer } from 'react-countdown-circle-timer'
 
-export default function Timer({ start, setExpire }) {
-    const [key, setKey] = useState(0);
+export default function Timer({ start, setExpire, key, setKey }) {
     const renderTime = ({ remainingTime }) => {
         if (start) {
             if (remainingTime === 0) {

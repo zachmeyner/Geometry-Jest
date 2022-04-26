@@ -3,7 +3,7 @@ import { Container, ToggleButtonGroup, ToggleButton, Button } from "react-bootst
 import click from './../static/clickBet.mp3'
 import submit from './../static/betSubmit.mp3'
 
-export default function Bet({ score, bet, setBet, setDisableSlot, setScore, disable, setDisable, setQuestion, expire }) {
+export default function Bet({ score, bet, setBet, setDisableSlot, setScore, disable, setDisable, setQuestion, key, setKey }) {
     const [other, setOther] = useState(0);
     const clickAudio = new Audio(click);
     const submitAudio = new Audio(submit);
@@ -45,8 +45,9 @@ export default function Bet({ score, bet, setBet, setDisableSlot, setScore, disa
             setQuestion(["Game Over! The game has reset."]);
             setBet(-1);
             setScore(10)
+            setKey(prevKey => prevKey + 1);
         }
-    }, [score, disable, setQuestion, setScore, setBet]);
+    }, [score, disable, setQuestion, setScore, setBet, setKey]);
     return (
         < Container className="gj-bg p-2" >
             <h3 className="text-white">Choose your bet</h3>
