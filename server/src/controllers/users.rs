@@ -102,21 +102,21 @@ pub async fn get_points(username: &String) -> i32 {
  * No input
  * Outputs a vector with the ten highest scores, and the username with it
  */
-pub async fn get_top_ten() -> Vec<Entry> {
+pub async fn get_top() -> Vec<Entry> {
     let conn = crate::tools::establish::establish_connection().await;
 
     let mut data = diesel::sql_query(
-        "SELECT username, highscore FROM users ORDER BY highscore desc LIMIT 10;",
+        "SELECT username, highscore FROM users ORDER BY highscore desc LIMIT 20;",
     )
     .load::<Entry>(&conn)
     .unwrap();
 
-    if data.len() < 10 {
+    if data.len() < 20 {
         let default = Entry {
             username: "NO SCORE".to_string(),
             highscore: 0,
         };
-        while data.len() != 10 {
+        while data.len() != 20 {
             data.push(default.clone());
         }
     }
