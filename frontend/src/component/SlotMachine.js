@@ -35,8 +35,8 @@ const questions = new Map([
     [332, ["Two planes intersecting form a _____.", 2]],
     [333, ["Three intersecting planes form at the least a _____.", 1]]
 ]);
-export default function SlotMachine({ reset, result, setResult, setQuestion, setButtonStatus, disableSlot, setDisableSlot }) {
-    const [start, setStart] = useState(false);
+export default function SlotMachine({ reset, result, setResult, setQuestion, setButtonStatus, disableSlot, setDisableSlot, setStart }) {
+    const [start, setStartLocal] = useState(false);
     const crankAudio = new Audio(crank);
     const spinAudio = new Audio(spin);
     function DisplayResults(value) {
@@ -60,18 +60,19 @@ export default function SlotMachine({ reset, result, setResult, setQuestion, set
         }, 500);
         setTimeout(() => {
             setQuestion(questions.get(resultNum));
+            setStart(true);
         }, 1000);
         setTimeout(() => {
             setButtonStatus(false);
         }, 1000);
     }
     function HandleClick() {
-        setStart(true);
+        setStartLocal(true);
         setDisableSlot(true);
         crankAudio.play();
         spinAudio.play();
         setTimeout(() => {
-            setStart(false);
+            setStartLocal(false);
         }, 2500);
 
     }
@@ -116,10 +117,10 @@ export default function SlotMachine({ reset, result, setResult, setQuestion, set
             </Row>
             <Row className=" p-1">
                 <Col lg={10}>
-                    <Container lg={10} className="gj-text-bg text-white text-start fs-3 p-2 ">
-                        <p className="d-inline pe-5 me-3 text-center">{result[0]}</p>
-                        <p className="d-inline pe-5 me-3 text-center">{result[1]}</p>
-                        <p className="d-inline pe-5 text-center">{result[2]}</p>
+                    <Container lg={10} className="gj-text-bg text-white text-start fs-3 p-2 text-center ">
+                        <p className="d-inline pe-5 me-3 ">{result[0]}</p>
+                        <p className="d-inline pe-5 me-3 ">{result[1]}</p>
+                        <p className="d-inline pe-5 ">{result[2]}</p>
                     </Container>
                 </Col>
 
