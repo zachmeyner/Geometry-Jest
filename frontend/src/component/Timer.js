@@ -25,7 +25,7 @@ export default function Timer({ start, setExpire }) {
             <CountdownCircleTimer
                 isPlaying={start}
                 key={key}
-                duration={5}
+                duration={60}
                 size={200}
                 colors={['#e2c600', '#968505', '#6c6007', '#2b2703']}
                 colorsTime={[10, 7, 3, 0]}
