@@ -73,13 +73,13 @@ export default function SlotMachine({ reset, result, setResult, setQuestion, set
         spinAudio.play();
         setTimeout(() => {
             setStartLocal(false);
-        }, 2500);
+        }, 1000);
 
     }
     return (
-        <Container className="h-100 w-100   gj-bg position-relative ">
-            <Row >
-                <Col lg={10} className="p-1" >
+        <Container className="h-75 gj-bg">
+            <Row lg={6} >
+                <Col lg={9} className="ms-2 p-1 position-fixed" >
                     <RollingItem
                         on={start}
                         column={3}
@@ -104,7 +104,7 @@ export default function SlotMachine({ reset, result, setResult, setQuestion, set
                     />
 
                 </Col>
-                <Col className="pt-2">
+                <Col className="pt-2 ">
                     <div className="switch ">
                         <div class={disableSlot ? "srow-disabled" : "srow"}>
                             <label class="vertical-switch">
@@ -115,9 +115,9 @@ export default function SlotMachine({ reset, result, setResult, setQuestion, set
                     </div>
                 </Col>
             </Row>
-            <Row className=" p-1">
+            <Row className="p-1  w-100">
                 <Col lg={10}>
-                    <Container lg={10} className="gj-text-bg text-white text-start fs-3 p-2 text-center ">
+                    <Container className="gj-text-bg h-100 text-white text-start fs-3 p-2 text-center ">
                         <p className="d-inline pe-5 me-3 ">{result[0]}</p>
                         <p className="d-inline pe-5 me-3 ">{result[1]}</p>
                         <p className="d-inline pe-5 ">{result[2]}</p>

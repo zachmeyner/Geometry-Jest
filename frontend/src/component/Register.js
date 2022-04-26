@@ -1,16 +1,19 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Container, Form, Button, Row, Col } from "react-bootstrap";
 import { CSSTransition } from 'react-transition-group';
 import axios from 'axios';
 import click from './../static/clickSubmitScore.mp3'
-export default function Register() {
+export default function Register({ score, setScore, url, expire, setExpire, setStart, setRefresh }) {
     const [displayForm, setDisplayForm] = useState('d-none');
     const [displayFormBool, setDisplayFormBool] = useState(false);
     const [user, setUser] = useState("");
     const [pw, setPw] = useState("");
+    const [token, setToken] = useState("");
+    const [pbScore, setpbScore] = useState(0);
     const [space, setSpace] = useState("d-inline");
+    const [logged, setLogged] = useState(false);
+    const [show, setShow] = useState("");
     const clickAudio = new Audio(click);
-    const url = 'http://127.0.0.1:8000/';
     function ShowForm() {
         if (displayForm !== 'd-none') {
             setSpace("d-inline");
@@ -24,7 +27,12 @@ export default function Register() {
         }
     }
     function HandleRegister() {
-        var dataSent = JSON.stringify({ username: user, password: pw });
+        var dataSent;
+        if (score === 0) {
+            dataSent = JSON.stringify({ username: user, password: pw });
+        } else {
+            dataSent = JSON.stringify({ username: user, password: pw, score: score });
+        }
         axios
             .post(url.concat('register'), dataSent, {
                 headers: {
@@ -33,9 +41,36 @@ export default function Register() {
                 },
             })
             .then(({ data }) => {
-                console.log(data);
+                HandleLogin(data.token);
             });
     }
+    useEffect(() => {
+        if (expire && logged) {
+            var dataSent;
+            if (score > pbScore) {
+                dataSent = JSON.stringify({ username: user, token: token, highscore: score })
+                console.log(dataSent);
+                setpbScore(score);
+                axios.put(url.concat('newscore'), dataSent, {
+                    headers: {
+                        'Content-Type': "application/json; charset=utf-8",
+                        Accept: "application/json"
+                    },
+                });
+            }
+            setStart(false);
+            setExpire(false);
+            setScore(10);
+        } else if (expire) {
+            if (score > pbScore) {
+                setpbScore(score);
+            }
+            setStart(false);
+            setExpire(false);
+            setScore(10);
+        }
+    }, [expire, logged, score, pbScore, url, setExpire, token, user, setScore, setpbScore, setStart]);
+
     function HandleLogin() {
         var dataSent = JSON.stringify({ username: user, pw: pw, iat: Date.now() });
         axios
@@ -46,12 +81,19 @@ export default function Register() {
                 },
             })
             .then(({ data }) => {
-                console.log(data);
+                setLogged(true);
+                setShow("d-none")
+                setDisplayFormBool(false);
+                setToken(data.token);
+                if (data.current_points > pbScore) {
+                    setpbScore(data.current_points);
+                }
             });
     }
     return (
         <Container >
-            <button className=" gj-button translate-middle" onClick={ShowForm}>Submit Score</button>
+            <button className={`gj-button translate-middle ${show}`} onClick={ShowForm}>Submit Score</button>
+            <h1 className={((logged) ? "d-block text-white mt-4 me-5" : "d-none")}>Logged as {user}</h1>
             <br className={`${space}`}></br>
             <br className={`${space}`}></br>
             <br className={`${space}`}></br>
@@ -64,7 +106,7 @@ export default function Register() {
             >
                 <Container className={`gj-bg gj-login-form ${displayForm} position-relative rounded`}>
                     <Form >
-                        <Row >
+                        <Row className="ms-1">
                             <Col className="p-1">
                                 <Form.Control autoFocus placeholder="Username" name="user" onChange={(e) => {
                                     setUser(e.target.value);

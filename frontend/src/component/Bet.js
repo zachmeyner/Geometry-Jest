@@ -3,7 +3,7 @@ import { Container, ToggleButtonGroup, ToggleButton, Button } from "react-bootst
 import click from './../static/clickBet.mp3'
 import submit from './../static/betSubmit.mp3'
 
-export default function Bet({ score, bet, setBet, setDisableSlot, setScore, disable, setDisable, setQuestion }) {
+export default function Bet({ score, bet, setBet, setDisableSlot, setScore, disable, setDisable, setQuestion, expire }) {
     const [other, setOther] = useState(0);
     const clickAudio = new Audio(click);
     const submitAudio = new Audio(submit);
@@ -16,8 +16,8 @@ export default function Bet({ score, bet, setBet, setDisableSlot, setScore, disa
         }
     }
     function handleSubmit() {
-        if (bet === 0) {
-        } else {
+        if (bet <= 0) {
+        } else if (bet <= score) {
             submitAudio.play();
             setScore(score - bet);
             setDisableSlot(false);
@@ -41,20 +41,16 @@ export default function Bet({ score, bet, setBet, setDisableSlot, setScore, disa
         document.getElementById("otherTA").focus();
     }
     useEffect(() => {
-        if (score === 0 && disable === false) {
-            setQuestion(["Game Over!"]);
+        if (score <= 0 && disable === false) {
+            setQuestion(["Game Over! The game has reset."]);
+            setBet(-1);
+            setScore(10)
         }
-    }, [score, disable, setQuestion]);
-    useEffect(() => {
-        if (score === 0 && disable === false) {
-            setQuestion(["Game Over!"]);
-        }
-    }, [score, disable, setQuestion]);
+    }, [score, disable, setQuestion, setScore, setBet]);
     return (
-        < Container className="gj-bg p-2 " >
-            <br />
+        < Container className="gj-bg p-2" >
             <h3 className="text-white">Choose your bet</h3>
-            <ToggleButtonGroup vertical type="radio" name="bets" onChange={handleSelect}  >
+            <ToggleButtonGroup vertical type="radio" name="bets" onChange={handleSelect} value={bet}  >
                 <ToggleButton id="bet1" value={1} className="border" name="one" disabled={disable} autoFocus={true}>
                     1
                 </ToggleButton>

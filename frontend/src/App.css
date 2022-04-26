@@ -16,7 +16,19 @@
 .gj-questionbox-bg {
   border: #e2c600 solid 2px;
   border-radius: 20px;
+  height: 130px;
   background: rgb(49, 49, 76);
+}
+.gj-questionbox-bg {
+  border: #e2c600 solid 2px;
+  border-radius: 20px;
+  background: rgb(49, 49, 76);
+}
+.gj-credits{
+  border: #b2b1a8 solid 1px;
+  text-align: center;
+  background-color: #525252;
+  color: #dcdcdc;
 }
 .gj-main{
   background-color: rgb(4, 4, 44);
@@ -73,8 +85,29 @@
 .h-40{
   height:40%;
 }
+.h-45{
+  height:45%;
+}
+.w-30{
+  width:30%;
+}
+.w-60{
+  width:60%;
+}
+.mt-20{
+  margin-top: 20rem;
+}
 .title{
   font-size: 4em;
+}
+.text-gold1{
+  color:#ffe100;
+}
+.text-gold2{
+  color:#e29c47;
+}
+.text-gold3{
+  color:#f5c0ad;
 }
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {

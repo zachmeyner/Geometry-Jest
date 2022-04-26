@@ -5,7 +5,7 @@ import clickSame from './../static/clickSameAnswer.mp3'
 import correct from './../static/correct.mp3'
 import incorrect from './../static/incorrect.mp3'
 
-export default function QuestionBox({ setReset, setResult, question, setQuestion, buttonStatus, setButtonStatus, expire, setStart, score, setScore, bet, setDisable }) {
+export default function QuestionBox({ setReset, setResult, question, setQuestion, buttonStatus, setButtonStatus, expire, setStart, score, setScore, bet, setBet, setDisable }) {
     const [answer, setAnswer] = useState(-1);
     const [point, setPoint] = useState("gj-oButton");
     const [line, setLine] = useState("gj-oButton");
@@ -17,14 +17,20 @@ export default function QuestionBox({ setReset, setResult, question, setQuestion
 
     useEffect(() => {
         if (expire) {
-            setQuestion([`You scored ${score}.`]);
+            setQuestion([`You scored ${score}. The game has been reset.`]);
             setPoint("gj-oButton");
             setLine("gj-oButton");
             setPlane("gj-oButton");
+            setBet(-1);
             setButtonStatus(true);
+            setDisable(false);
+            setTimeout(() => {
+                setReset(true);
+            }, 100);
+            setReset(false);
         }
+    }, [expire, score, setQuestion, setBet, setPoint, setLine, setPlane, setDisable, setReset, setButtonStatus]);
 
-    }, [expire, score, setQuestion, setPoint, setLine, setPlane, setButtonStatus]);
     function ResetSlot() {
         if (answer === -1) {
             console.log("choose");
@@ -50,6 +56,7 @@ export default function QuestionBox({ setReset, setResult, question, setQuestion
                 incorrectAudio.play();
                 setQuestion(["Wrong!"]);
             }
+            setBet(-1);
         }
     }
     function HandleClick(e) {
@@ -76,12 +83,12 @@ export default function QuestionBox({ setReset, setResult, question, setQuestion
     return (
         <Container className="h-100 gj-bg text-white">
             <h3 >Question</h3>
-            <Row className="w-100 ps-4 h-40">
-                <Container className="h-100 p-2 gj-questionbox-bg text-white text-start fs-4">
+            <Row lg={10} className="w-100 ps-4">
+                <Container className="p-2 gj-questionbox-bg text-white text-start fs-4">
                     {question[0]}
                 </Container>
             </Row>
-            <Row className="w-100 pt-4 px-2 float-start d-inline">
+            <Row className="w-100 p-4  px-2 float-start ">
                 <Container className="w-100 ">
                     <button onClick={(e) => { HandleClick(e) }} className={`${point}`} value={1} disabled={buttonStatus} id="point">Point</button> &nbsp;&nbsp;&nbsp;
                     <button onClick={(e) => { HandleClick(e) }} className={`${line}`} value={2} disabled={buttonStatus} id="line">Line</button> &nbsp;&nbsp;&nbsp;
