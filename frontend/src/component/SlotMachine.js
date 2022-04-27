@@ -79,7 +79,7 @@ export default function SlotMachine({ reset, result, setResult, setQuestion, set
     return (
         <Container className="h-75 gj-bg">
             <Row lg={6} >
-                <Col lg={9} className="ms-2 p-1 position-fixed" >
+                <Col lg={9} className="ms-2 p-1 " >
                     <RollingItem
                         on={start}
                         column={3}

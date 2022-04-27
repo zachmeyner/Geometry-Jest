@@ -31,7 +31,7 @@ export default function Register({ score, setScore, url, expire, setExpire, setS
         if (score === 0) {
             dataSent = JSON.stringify({ username: user, password: pw });
         } else {
-            dataSent = JSON.stringify({ username: user, password: pw, score: score });
+            dataSent = JSON.stringify({ username: user, password: pw, score: pbScore });
         }
         axios
             .post(url.concat('register'), dataSent, {
@@ -81,12 +81,12 @@ export default function Register({ score, setScore, url, expire, setExpire, setS
                 },
             })
             .then(({ data }) => {
-                setLogged(true);
-                setShow("d-none")
-                setDisplayFormBool(false);
                 setToken(data.token);
+                setLogged(true);
+                setShow("d-none");
+                setDisplayFormBool(false);
                 if (pbScore > data.current_points) {
-                    dataSent = JSON.stringify({ username: user, token: token, highscore: pbScore })
+                    dataSent = JSON.stringify({ username: user, token: token, highscore: pbScore });
                     console.log(dataSent);
                     axios.put(url.concat('newscore'), dataSent, {
                         headers: {

@@ -140,6 +140,7 @@
 }
 .tiles{
   padding-top: 2em;
+  position:absolute;
 }
 
 .gradient-box {
