@@ -3,7 +3,7 @@ import { Container, Form, Button, Row, Col } from "react-bootstrap";
 import { CSSTransition } from 'react-transition-group';
 import axios from 'axios';
 import click from './../static/clickSubmitScore.mp3'
-export default function Register({ score, setScore, url, expire, setExpire, setStart, setRefresh }) {
+export default function Register({ score, setScore, url, expire, setExpire, setStart }) {
     const [displayForm, setDisplayForm] = useState('d-none');
     const [displayFormBool, setDisplayFormBool] = useState(false);
     const [user, setUser] = useState("");
@@ -81,16 +81,12 @@ export default function Register({ score, setScore, url, expire, setExpire, setS
                 },
             })
             .then(({ data }) => {
-                setToken(String(data.token));
+                setToken(data.token.toString);
                 setLogged(true);
                 setShow("d-none");
                 setDisplayFormBool(false);
-                console.log(data);
-                console.log(data.token);
-                console.log(token);
                 if (pbScore > data.current_points) {
                     dataSent = JSON.stringify({ username: user, token: token, highscore: pbScore });
-                    console.log(dataSent);
                     axios.put(url.concat('newscore'), dataSent, {
                         headers: {
                             'Content-Type': "application/json; charset=utf-8",
