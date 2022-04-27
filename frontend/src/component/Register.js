@@ -81,7 +81,7 @@ export default function Register({ score, setScore, url, expire, setExpire, setS
                 },
             })
             .then(({ data }) => {
-                setToken(data.token);
+                setToken(String(data.token));
                 setLogged(true);
                 setShow("d-none");
                 setDisplayFormBool(false);
@@ -125,7 +125,7 @@ export default function Register({ score, setScore, url, expire, setExpire, setS
                                 }} />
                             </Col>
                             <Col className="p-1">
-                                <Form.Control placeholder="Password" name="pass" onChange={(e) => {
+                                <Form.Control type="password" placeholder="Password" name="pass" onChange={(e) => {
                                     setPw(e.target.value);
                                 }} />
                             </Col>
