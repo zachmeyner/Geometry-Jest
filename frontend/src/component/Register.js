@@ -85,6 +85,9 @@ export default function Register({ score, setScore, url, expire, setExpire, setS
                 setLogged(true);
                 setShow("d-none");
                 setDisplayFormBool(false);
+                console.log(data);
+                console.log(data.token);
+                console.log(token);
                 if (pbScore > data.current_points) {
                     dataSent = JSON.stringify({ username: user, token: token, highscore: pbScore });
                     console.log(dataSent);
