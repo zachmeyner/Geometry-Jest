@@ -34,6 +34,7 @@ fn rocket() -> _ {
         "http://127.0.0.1:8000",
         "http://0.0.0.0:8000",
         "https://geometryjest.zacharymeyner.com/",
+        "https://cs323.cs.edinboro.edu/~geometryJest/",
     ]);
     let cors = rocket_cors::CorsOptions {
         allowed_origins,
