@@ -26,7 +26,7 @@ export default function App() {
   const [key, setKey] = useState(0);
   //const [submit, setSubmit] = useState(false);
   return (
-    <Container className=" App gj-main p-2  " >
+    <Container className=" App gj-main p-2 mobile  " >
       <Row className="gj-bg w-100 ms-1">
         <Col lg={4} className="w-40" >
           <Register score={score} setScore={setScore} url={url} expire={expire} setExpire={setExpire} setStart={setStart} setRefresh={setRefresh} >   </Register>
@@ -64,7 +64,7 @@ export default function App() {
           <HighScore url={url} refresh={refresh} setRefresh={setRefresh}></HighScore> */
         </Col>
       </Col >
-      <div className="gj-credits">
+      <div className="gj-credits ">
         Daniel Rosales - Frontend | Zachary Meyner - Backend | Jacob Sorensen - Documentation/Testing | Mabel Heggenstaller - Testing | Daniel Heald - Graphics Design
       </div>
     </Container >

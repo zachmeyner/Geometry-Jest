@@ -1,3 +1,4 @@
+
 .gj-bg {
   border: #e2c600 solid 10px;
   border-radius: 20px;
@@ -138,7 +139,11 @@
     animation: App-logo-spin infinite 20s linear;
   }
 }
-
+@media only screen and (max-width: 1399px) {
+  .mobile {
+    display: none;
+  }
+}
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
