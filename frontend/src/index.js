@@ -11,7 +11,7 @@ ReactDOM.render(
     <App />
 
     <div className="position-absolute h-100 w-100 mobileShow desktopHide fs-1">
-      Website works on desktop only, for now...
+      Make window bigger, zoom out, or use desktop.
     </div>
   </React.StrictMode >,
   document.getElementById('root')
