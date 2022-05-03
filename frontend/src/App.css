@@ -36,6 +36,30 @@
 .gj-betButton {
   background-color: #e2c600;
 }
+.gj-submitButton{
+  position:absolute;
+  right:115px;
+  bottom:35px;
+  height:125px;
+  width:125px;
+  background: rgb(106,22,22);
+  border: 1px solid rgb(175, 157, 157);
+  background: radial-gradient(circle, rgba(106,22,22,1) 5%, rgba(13,4,4,1) 100%, rgba(214,43,43,1) 100%);
+  border-radius: 100%;
+  -webkit-box-shadow: 5px 5px 15px 2px #5e1414; 
+  box-shadow: 2px 2px 20px 2px #3c0909;
+  color:#dededed3;
+  font-weight: bold;
+  z-index: 1000;
+}
+.gj-submitButton:hover{
+  background: rgb(194,49,49);
+  background: radial-gradient(circle, rgba(194,49,49,1) 5%, rgba(13,4,4,1) 100%, rgba(214,43,43,1) 100%); 
+}
+.gj-submitButton:active {
+  background: rgb(224,186,186);
+  background: radial-gradient(circle, rgb(175, 100, 100) 5%, rgba(13,4,4,1) 100%, rgba(214,43,43,1) 100%);
+}
 .gj-button {
   position:absolute;
   margin-top:45px;

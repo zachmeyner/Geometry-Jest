@@ -3,7 +3,7 @@ import { Container, ToggleButtonGroup, ToggleButton, Button } from "react-bootst
 import click from './../static/clickBet.mp3'
 import submit from './../static/betSubmit.mp3'
 
-export default function Bet({ score, bet, setBet, setDisableSlot, setScore, disable, setDisable, setQuestion, key, setKey }) {
+export default function Bet({ score, bet, setBet, setDisableSlot, setScore, disable, setDisable, setQuestion, setKey }) {
     const [other, setOther] = useState(0);
     const clickAudio = new Audio(click);
     const submitAudio = new Audio(submit);

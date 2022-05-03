@@ -48,15 +48,14 @@ export default function Register({ score, setScore, url, expire, setExpire, setS
         if (expire && logged) {
             var dataSent;
             if (score > pbScore) {
-                dataSent = JSON.stringify({ username: user, token: token, highscore: score })
-                console.log(dataSent);
-                setpbScore(score);
+                dataSent = JSON.stringify({ username: user, token: token, highscore: score });
                 axios.put(url.concat('newscore'), dataSent, {
                     headers: {
                         'Content-Type': "application/json; charset=utf-8",
                         Accept: "application/json"
                     },
                 });
+                setpbScore(score);
             }
             setStart(false);
             setExpire(false);
@@ -73,6 +72,7 @@ export default function Register({ score, setScore, url, expire, setExpire, setS
 
     function HandleLogin() {
         var dataSent = JSON.stringify({ username: user, pw: pw, iat: Date.now() });
+        var tmpToken = "";
         axios
             .post(url.concat('login'), dataSent, {
                 headers: {
@@ -81,12 +81,13 @@ export default function Register({ score, setScore, url, expire, setExpire, setS
                 },
             })
             .then(({ data }) => {
-                setToken(data.token.toString);
+                tmpToken = data.token;
+                setToken(tmpToken);
                 setLogged(true);
                 setShow("d-none");
                 setDisplayFormBool(false);
                 if (pbScore > data.current_points) {
-                    dataSent = JSON.stringify({ username: user, token: token, highscore: pbScore });
+                    dataSent = JSON.stringify({ username: user, token: tmpToken, highscore: pbScore });
                     axios.put(url.concat('newscore'), dataSent, {
                         headers: {
                             'Content-Type': "application/json; charset=utf-8",
@@ -100,7 +101,7 @@ export default function Register({ score, setScore, url, expire, setExpire, setS
     }
     return (
         <Container >
-            <button className={`gj-button translate-middle ${show}`} onClick={ShowForm}>Submit Score</button>
+            <button className={`gj-button translate-middle ${show}`} onClick={ShowForm}>Login/Register</button>
             <h1 className={((logged) ? "d-block text-white mt-4 me-5" : "d-none")}>Logged as {user}</h1>
             <br className={`${space}`}></br>
             <br className={`${space}`}></br>

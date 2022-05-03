@@ -24,12 +24,12 @@ export default function App() {
   const [disable, setDisable] = useState(false);
   const [refresh, setRefresh] = useState(true);
   const [key, setKey] = useState(0);
-
+  //const [submit, setSubmit] = useState(false);
   return (
     <Container className=" App gj-main p-2  " >
       <Row className="gj-bg w-100 ms-1">
         <Col lg={4} className="w-40" >
-          <Register score={score} setScore={setScore} url={url} expire={expire} setExpire={setExpire} setStart={setStart} setRefresh={setRefresh}>  </Register>
+          <Register score={score} setScore={setScore} url={url} expire={expire} setExpire={setExpire} setStart={setStart} setRefresh={setRefresh} >   </Register>
         </Col>
         <Col lg={5}>
           <p className="text-white title">Geometry Jest </p>
@@ -56,6 +56,8 @@ export default function App() {
           </Row>
           <Row lg={1} className="ms-4 mt-5 pt-4 ps-3 pt-5">
             <Timer start={start} setExpire={setExpire} key={key} setKey={setKey} ></Timer>
+          </Row>
+          <Row>
           </Row>
         </Col>
         <Col lg={4} className="pe-3 pt-1">

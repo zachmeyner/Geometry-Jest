@@ -3,6 +3,7 @@ import { Container } from "react-bootstrap";
 import { CountdownCircleTimer } from 'react-countdown-circle-timer'
 
 export default function Timer({ start, setExpire, key, setKey }) {
+    // const [show, setShow] = useState("d-block");
     const renderTime = ({ remainingTime }) => {
         if (start) {
             if (remainingTime === 0) {
@@ -19,8 +20,23 @@ export default function Timer({ start, setExpire, key, setKey }) {
             );
         }
     };
+    // function HandleClick() {
+    //     setSubmit(true);
+    //     setKey(prevKey => prevKey + 1);
+    //     setDisable(true);
+    //     setTimeout(() => {
+    //         setDisable(false);
+    //     }, 1000);
+    // }
+    // useEffect(() => {
+    //     if (disable) {
+    //         setShow("d-none");
+    //     } else {
+    //         setShow("d-block");
+    //     }
+    // }, [disable, setShow]);
     return (
-        <Container className="text-white">
+        <Container className="text-white w-100 position-relative">
             <CountdownCircleTimer
                 isPlaying={start}
                 key={key}
@@ -35,6 +51,8 @@ export default function Timer({ start, setExpire, key, setKey }) {
             >
                 {renderTime}
             </CountdownCircleTimer>
+            {/* <button className={`gj-submitButton ${show}`} onClick={HandleClick}>Reset &amp;<br></br>Submit</button> */}
+
         </Container >
     );
 }
