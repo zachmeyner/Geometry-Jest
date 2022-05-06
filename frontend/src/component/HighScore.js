@@ -88,7 +88,7 @@ export default function HighScore({ url, refresh, setRefresh }) {
     useEffect(() => {
         if (refresh) {
             axios
-                .post(url.concat('leaderboard'), {
+                .post(url.concat('/'), {
                     headers: {
                         'Content-Type': "application/json; charset=utf-8",
                         Accept: "application/json"

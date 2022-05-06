@@ -19,7 +19,6 @@ export default function Bet({ score, bet, setBet, setDisableSlot, setScore, disa
         if (bet <= 0) {
         } else if (bet <= score) {
             submitAudio.play();
-            setScore(score - bet);
             setDisableSlot(false);
             setQuestion([]);
             setDisable(true)

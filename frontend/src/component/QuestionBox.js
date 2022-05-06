@@ -49,10 +49,11 @@ export default function QuestionBox({ setReset, setResult, question, setQuestion
             if (Number(question[1]) === Number(answer)) {
                 setAnswer(-1);
                 correctAudio.play();
-                setScore(Math.ceil(score + bet + (bet * 0.5)));
+                setScore(Math.ceil(score + (bet * 0.5)));
                 setQuestion(["Correct!"]);
             } else {
                 setAnswer(-1);
+                setScore(score - bet);
                 incorrectAudio.play();
                 setQuestion(["Wrong!"]);
             }
