@@ -1,6 +1,6 @@
-![Rust](https://github.com/zachmeyner/Geometry-Jest/actions/workflows/rust.yml/badge.svg)
-![React](https://github.com/zachmeyner/Geometry-Jest/actions/workflows/react.yml/badge.svg)
-![CD](https://github.com/zachmeyner/Geometry-Jest/actions/workflows/deploy.yml/badge.svg)
+# WARNING
+This has NOT been maintained in ANY way since it was finalized for the class. Due to this there is an MANY major security issues in the React frontend. Because this is no longer being worked on, I have decided to not a ttempt to update the frontend in any way besides changing the url for API calls to "localhost:8080"
+
 # Geometry-Jest
 CS408 Semester Project
 
@@ -51,7 +51,12 @@ Install [WSL](https://docs.microsoft.com/en-us/windows/wsl/install) onto your co
         npm install
         ```
 3. MySQL
-    1. IDK RIGHT NOW I'LL FIX IT THO
+    1. Create a mySQL table with columns
+
+        | id | username | userpass | salt | highscore |
+        
+        Where id is a Primary Key int, username is a varchar(12) userpass is a char(64), salt is a char(32), and highscore is int.
+        
 
 ### Frontend
 ----
