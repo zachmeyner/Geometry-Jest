@@ -1,5 +1,7 @@
 # WARNING
-This has NOT been maintained in ANY way since it was finalized for the class. Due to this there is an MANY major security issues in the React frontend. Because this is no longer being worked on, I have decided to not a ttempt to update the frontend in any way besides changing the url for API calls to "localhost:8080"
+This has NOT been maintained in ANY way since it was finalized for the class. Due to this there is an MANY major security issues in the React frontend. Because this is no longer being worked on, I have decided to not a ttempt to update the frontend in any way besides changing the url for API calls to "localhost:8080" NOTE: When rebuilding the frontend I could not get API calls to function, so I recommend using postman to try out the backend should you chose to build this yourself.
+
+From my testing the backend compiles, but the rust compiler notes that some dependencies contain code that will be rejected in future versions of rust.
 
 # Geometry-Jest
 CS408 Semester Project
