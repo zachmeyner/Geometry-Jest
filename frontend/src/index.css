@@ -1,13 +1,56 @@
 body {
+  background-image: url(./static/bg.png);
+  background-size: cover;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+:root {
+  --menu-starting-top: -100px;
+  --menu-ending-top: 30px;
+  --menu-width: 100px;
+  --menu-max-height: 100px;
+  --timeout: 100ms;
+}
+.display-enter {
+  top: var(--menu-starting-top);
+}
+
+.display-enter-active {
+  top: var(--menu-ending-top);
+  width: var(--menu-width);
+  max-height: var(--menu-max-height);
+  transition: all var(--timeout);
+}
+
+.display-exit {
+  top: var(--menu-ending-top);
+  width: var(--menu-width);
+  max-height: var(--menu-max-height);
+}
+
+.display-exit-active {
+  top: var(--menu-starting-top);
+  transition: all var(--timeout);
+}
+
+@media only screen and (max-width: 1399px) {
+  .mobileShow{
+    background-color: black;
+    background-size: cover;
+    color:white;
+  }
+}
+@media only screen and (min-width: 1400px) {
+  .desktopHide{
+    display:none;
+  }
 }
